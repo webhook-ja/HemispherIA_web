@@ -281,7 +281,6 @@ const ContactPage = () => {
                           name="email"
                           type="email"
                           value={formData.email}
-<dyad-write path="src/pages/Contact.tsx" description="Creating the Contact page with interactive elements (continued)">
                           onChange={handleChange}
                           placeholder="tu.empresa@dominio.com"
                           required
