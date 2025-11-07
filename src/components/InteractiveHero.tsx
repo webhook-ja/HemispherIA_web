@@ -62,13 +62,11 @@ const InteractiveHero = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-50 to-gray-100 rounded-xl w-full h-96 flex items-center justify-center shadow-lg">
-                <div className="text-center p-8">
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">Innovación Responsable</h3>
-                  <p className="text-gray-600">Soluciones tecnológicas con impacto social</p>
-                </div>
-              </div>
+              <img 
+                src="https://via.placeholder.com/600x400?text=Jovenes+Tecnologia+Comunidades" 
+                alt="Jóvenes, tecnología y comunidades" 
+                className="rounded-xl w-full h-auto object-cover shadow-lg"
+              />
               
               {/* Floating elements */}
               <motion.div
