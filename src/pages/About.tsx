@@ -13,6 +13,7 @@ import {
   Play,
   Pause
 } from "lucide-react";
+import AnimatedNavbar from "@/components/AnimatedNavbar";
 
 const AboutPage = () => {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -38,6 +39,8 @@ const AboutPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <AnimatedNavbar />
+      
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
