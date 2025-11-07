@@ -47,19 +47,19 @@ const AnimatedServicesSection = () => {
     <ContextualSection
       id="services"
       title="QUÉ HACEMOS"
-      subtitle="Mostrar el valor práctico: qué ofrecemos, cómo trabajamos, resultados concretos."
-      context="services"
+      subtitle="Soluciones innovadoras con impacto medible"
+      className="bg-gray-50"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {services.map((service, index) => (
-          <AnimatedCard key={index} context="services">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-green-600 mb-4">{service.title}</h3>
-              <p className="text-gray-700 mb-4">{service.description}</p>
-              <ul className="space-y-2">
+          <AnimatedCard key={index}>
+            <div className="p-8">
+              <h3 className="text-xl font-bold text-blue-800 mb-4">{service.title}</h3>
+              <p className="text-gray-600 mb-6">{service.description}</p>
+              <ul className="space-y-3">
                 {service.items.map((item, itemIndex) => (
                   <li key={itemIndex} className="flex items-start">
-                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-blue-500 mr-3 mt-1">•</span>
                     <span className="text-gray-700">{item}</span>
                   </li>
                 ))}

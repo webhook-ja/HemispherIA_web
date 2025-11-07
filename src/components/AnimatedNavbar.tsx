@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Menu, X, Globe, Volume2 } from "lucide-react";
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const AnimatedNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("ES");
-  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,24 +17,20 @@ const AnimatedNavbar = () => {
     { name: "QUIÉNES SOMOS", href: "#about" },
     { name: "QUÉ HACEMOS", href: "#services" },
     { name: "PROYECTOS", href: "#projects" },
-    { name: "HUB", href: "#hub" },
-    { name: "NOTICIAS", href: "#news" },
-    { name: "ÚNETE", href: "#join" },
     { name: "CONTACTO", href: "#contact" },
   ];
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-50">
+    <nav className="bg-white border-b border-gray-200 fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <motion.div 
             className="flex items-center"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
           >
             <div className="flex-shrink-0 flex items-center">
               <motion.span 
-                className="text-xl font-bold text-blue-600"
-                whileHover={{ textShadow: "0px 0px 8px rgba(59, 130, 246, 0.5)" }}
+                className="text-xl font-bold text-blue-800"
               >
                 HemispherIA
               </motion.span>
@@ -49,51 +43,31 @@ const AnimatedNavbar = () => {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 font-medium transition-colors relative"
+                className="text-gray-700 hover:text-blue-800 font-medium transition-colors relative py-2"
                 whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
               >
                 {item.name}
                 <motion.span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600"
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-800"
                   whileHover={{ width: "100%" }}
                   transition={{ duration: 0.3 }}
                 />
               </motion.a>
             ))}
             
-            {/* Language Selector */}
-            <div className="relative">
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center space-x-1"
-                onClick={() => setLanguage(language === "ES" ? "EN" : language === "EN" ? "PT" : "ES")}
-              >
-                <Globe className="h-4 w-4" />
-                <span>{language}</span>
-              </Button>
-            </div>
-            
-            {/* Sound Toggle */}
-            <motion.button
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsSoundEnabled(!isSoundEnabled)}
-            >
-              <Volume2 className={`h-4 w-4 ${isSoundEnabled ? 'text-blue-600' : 'text-gray-400'}`} />
-            </motion.button>
+            <Button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2">
+              Contacto
+            </Button>
           </div>
           
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-800 focus:outline-none"
             >
               {isMenuOpen ? (
                 <X className="block h-6 w-6" />
@@ -120,32 +94,17 @@ const AnimatedNavbar = () => {
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                  whileHover={{ x: 10 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-800 hover:bg-gray-50"
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   {item.name}
                 </motion.a>
               ))}
-              <div className="px-3 py-2 border-t border-gray-200 flex justify-between">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center justify-center space-x-1"
-                  onClick={() => setLanguage(language === "ES" ? "EN" : language === "EN" ? "PT" : "ES")}
-                >
-                  <Globe className="h-4 w-4" />
-                  <span>{language}</span>
+              <div className="px-3 py-2 border-t border-gray-200">
+                <Button className="w-full bg-blue-800 hover:bg-blue-900 text-white">
+                  Contacto
                 </Button>
-                
-                <motion.button
-                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setIsSoundEnabled(!isSoundEnabled)}
-                >
-                  <Volume2 className={`h-4 w-4 ${isSoundEnabled ? 'text-blue-600' : 'text-gray-400'}`} />
-                </motion.button>
               </div>
             </div>
           </motion.div>

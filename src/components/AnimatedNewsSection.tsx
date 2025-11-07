@@ -28,11 +28,10 @@ const AnimatedNewsSection = () => {
       id="news"
       title="NOTICIAS Y BLOG"
       subtitle="Contenido fresco, tono periodístico y visual moderno."
-      context="news"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {newsItems.map((item, index) => (
-          <AnimatedCard key={index} context="news">
+          <AnimatedCard key={index}>
             <div className="p-6">
               <h3 className="text-lg font-bold text-red-600 mb-3">{item.title}</h3>
               <p className="text-gray-700 mb-4">{item.excerpt}</p>

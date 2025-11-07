@@ -11,10 +11,9 @@ const AnimatedJoinSection = () => {
       id="join"
       title="ÚNETE / COLABORA"
       subtitle="Convocatoria abierta, tono invitacional y constructivo."
-      context="join"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <AnimatedCard context="join">
+        <AnimatedCard>
           <div className="p-6">
             <h3 className="text-xl font-bold text-indigo-600 mb-4">Voluntariado y Fellows</h3>
             <p className="text-gray-700 mb-4">
@@ -26,7 +25,7 @@ const AnimatedJoinSection = () => {
           </div>
         </AnimatedCard>
 
-        <AnimatedCard context="join">
+        <AnimatedCard>
           <div className="p-6">
             <h3 className="text-xl font-bold text-indigo-600 mb-4">Consultorías y Alianzas</h3>
             <p className="text-gray-700 mb-4">
@@ -38,7 +37,7 @@ const AnimatedJoinSection = () => {
           </div>
         </AnimatedCard>
 
-        <AnimatedCard context="join">
+        <AnimatedCard>
           <div className="p-6">
             <h3 className="text-xl font-bold text-indigo-600 mb-4">Bolsa de Innovación</h3>
             <p className="text-gray-700 mb-4">

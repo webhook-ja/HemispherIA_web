@@ -11,10 +11,9 @@ const AnimatedHubSection = () => {
       id="hub"
       title="HEMISPHERIA HUB"
       subtitle="Espacio dinámico de intercambio de conocimiento. Visualmente tipo 'portal académico/colaborativo'."
-      context="hub"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <AnimatedCard context="hub">
+        <AnimatedCard>
           <div className="p-6">
             <h3 className="text-xl font-bold text-yellow-600 mb-4">Publicaciones y Estudios</h3>
             <p className="text-gray-700 mb-4">
@@ -26,7 +25,7 @@ const AnimatedHubSection = () => {
           </div>
         </AnimatedCard>
 
-        <AnimatedCard context="hub">
+        <AnimatedCard>
           <div className="p-6">
             <h3 className="text-xl font-bold text-yellow-600 mb-4">Eventos y Webinars</h3>
             <p className="text-gray-700 mb-4">
@@ -38,7 +37,7 @@ const AnimatedHubSection = () => {
           </div>
         </AnimatedCard>
 
-        <AnimatedCard context="hub">
+        <AnimatedCard>
           <div className="p-6">
             <h3 className="text-xl font-bold text-yellow-600 mb-4">Red HemispherIA</h3>
             <p className="text-gray-700 mb-4">

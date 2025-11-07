@@ -32,12 +32,12 @@ const MouseFollower = () => {
     <>
       {isVisible && (
         <motion.div
-          className="fixed w-6 h-6 rounded-full bg-blue-500 pointer-events-none z-50 mix-blend-difference"
+          className="fixed w-3 h-3 rounded-full bg-blue-500 pointer-events-none z-50 opacity-30"
           animate={{
-            x: mousePosition.x - 12,
-            y: mousePosition.y - 12,
+            x: mousePosition.x - 6,
+            y: mousePosition.y - 6,
           }}
-          transition={{ type: "spring", stiffness: 500, damping: 28 }}
+          transition={{ type: "spring", stiffness: 1000, damping: 50 }}
         />
       )}
     </>
