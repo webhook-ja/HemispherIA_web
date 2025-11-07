@@ -4,20 +4,22 @@ import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const AnimatedNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const navItems = [
-    { name: "INICIO", href: "#home" },
-    { name: "QUIÉNES SOMOS", href: "#about" },
-    { name: "QUÉ HACEMOS", href: "#services" },
-    { name: "PROYECTOS", href: "#projects" },
-    { name: "CONTACTO", href: "#contact" },
+    { name: "INICIO", href: "/" },
+    { name: "QUIÉNES SOMOS", href: "/about" },
+    { name: "QUÉ HACEMOS", href: "/services" },
+    { name: "PROYECTOS", href: "/projects" },
+    { name: "CONTACTO", href: "/contact" },
   ];
 
   return (
@@ -28,7 +30,10 @@ const AnimatedNavbar = () => {
             className="flex items-center"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="flex-shrink-0 flex items-center">
+            <div 
+              className="flex-shrink-0 flex items-center cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               <motion.span 
                 className="text-xl font-bold text-blue-800"
               >
@@ -42,8 +47,11 @@ const AnimatedNavbar = () => {
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-blue-800 font-medium transition-colors relative py-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(item.href);
+                }}
+                className="text-gray-700 hover:text-blue-800 font-medium transition-colors relative py-2 cursor-pointer"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -58,7 +66,10 @@ const AnimatedNavbar = () => {
               </motion.a>
             ))}
             
-            <Button className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2">
+            <Button 
+              className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2"
+              onClick={() => navigate("/contact")}
+            >
               Contacto
             </Button>
           </div>
@@ -93,8 +104,12 @@ const AnimatedNavbar = () => {
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-800 hover:bg-gray-50"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate(item.href);
+                    setIsMenuOpen(false);
+                  }}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-800 hover:bg-gray-50 cursor-pointer"
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -102,7 +117,13 @@ const AnimatedNavbar = () => {
                 </motion.a>
               ))}
               <div className="px-3 py-2 border-t border-gray-200">
-                <Button className="w-full bg-blue-800 hover:bg-blue-900 text-white">
+                <Button 
+                  className="w-full bg-blue-800 hover:bg-blue-900 text-white"
+                  onClick={() => {
+                    navigate("/contact");
+                    setIsMenuOpen(false);
+                  }}
+                >
                   Contacto
                 </Button>
               </div>
