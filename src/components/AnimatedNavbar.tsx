@@ -25,17 +25,20 @@ const AnimatedNavbar = () => {
   return (
     <nav className="bg-white border-b border-gray-200 fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <motion.div className="flex items-center" whileHover={{ scale: 1.02 }}>
+        <div className="flex flex-col items-center gap-3 py-3 md:flex-row md:items-center md:justify-between md:gap-0 md:h-16 md:py-0">
+          <motion.div
+            className="flex w-full items-center justify-center md:w-auto md:justify-start"
+            whileHover={{ scale: 1.02 }}
+          >
             <button
               type="button"
-              className="flex items-center focus:outline-none"
+              className="flex w-full items-center justify-center focus:outline-none md:w-auto md:justify-start"
               onClick={() => navigate("/")}
             >
               <img
                 src="/logo.jpeg"
                 alt="HemispherIA"
-                className="h-12 sm:h-14 w-auto object-contain"
+                className="w-full max-h-32 object-contain md:max-h-16"
               />
             </button>
           </motion.div>
@@ -71,10 +74,10 @@ const AnimatedNavbar = () => {
             </Button>
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="flex w-full items-center justify-center md:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-800 focus:outline-none"
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-blue-800 focus:outline-none"
             >
               {isMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
             </button>
@@ -91,7 +94,7 @@ const AnimatedNavbar = () => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+            <div className="flex flex-col items-center gap-2 bg-white px-4 pt-4 pb-6 shadow-lg">
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
@@ -100,14 +103,14 @@ const AnimatedNavbar = () => {
                     navigate(item.href);
                     setIsMenuOpen(false);
                   }}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-800 hover:bg-gray-50 cursor-pointer"
+                  className="block w-full rounded-md px-3 py-2 text-center text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-800 cursor-pointer"
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {item.name}
                 </motion.a>
               ))}
-              <div className="px-3 py-2 border-t border-gray-200">
+              <div className="w-full border-t border-gray-200 pt-3">
                 <Button
                   className="w-full bg-blue-800 hover:bg-blue-900 text-white"
                   onClick={() => {
