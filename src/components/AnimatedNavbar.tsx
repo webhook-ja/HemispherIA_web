@@ -29,7 +29,7 @@ const AnimatedNavbar = () => {
           <motion.div className="flex items-center" whileHover={{ scale: 1.02 }}>
             <button
               type="button"
-              className="flex items-center space-x-2 focus:outline-none"
+              className="flex items-center focus:outline-none"
               onClick={() => navigate("/")}
             >
               <img
@@ -37,9 +37,6 @@ const AnimatedNavbar = () => {
                 alt="HemispherIA"
                 className="h-10 w-auto object-contain"
               />
-              <span className="text-xl font-semibold text-blue-800 hidden sm:inline-flex">
-                HemispherIA
-              </span>
             </button>
           </motion.div>
 
