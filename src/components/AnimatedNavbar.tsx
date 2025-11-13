@@ -11,7 +11,7 @@ const AnimatedNavbar = () => {
   const navigate = useNavigate();
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
   const navItems = [
@@ -26,23 +26,23 @@ const AnimatedNavbar = () => {
     <nav className="bg-white border-b border-gray-200 fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <motion.div 
-            className="flex items-center"
-            whileHover={{ scale: 1.02 }}
-          >
-            <div 
-              className="flex-shrink-0 flex items-center cursor-pointer"
+          <motion.div className="flex items-center" whileHover={{ scale: 1.02 }}>
+            <button
+              type="button"
+              className="flex items-center space-x-2 focus:outline-none"
               onClick={() => navigate("/")}
             >
-              <motion.span 
-                className="text-xl font-bold text-blue-800"
-              >
+              <img
+                src="/logo.jpeg"
+                alt="HemispherIA"
+                className="h-10 w-auto object-contain"
+              />
+              <span className="text-xl font-semibold text-blue-800 hidden sm:inline-flex">
                 HemispherIA
-              </motion.span>
-            </div>
+              </span>
+            </button>
           </motion.div>
-          
-          {/* Desktop Navigation */}
+
           <div className="hidden md:flex md:items-center md:space-x-8">
             {navItems.map((item, index) => (
               <motion.a
@@ -65,32 +65,26 @@ const AnimatedNavbar = () => {
                 />
               </motion.a>
             ))}
-            
-            <Button 
+
+            <Button
               className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2"
               onClick={() => navigate("/contact")}
             >
               Contacto
             </Button>
           </div>
-          
-          {/* Mobile menu button */}
+
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-800 focus:outline-none"
             >
-              {isMenuOpen ? (
-                <X className="block h-6 w-6" />
-              ) : (
-                <Menu className="block h-6 w-6" />
-              )}
+              {isMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
-      
-      {/* Mobile Menu */}
+
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -117,7 +111,7 @@ const AnimatedNavbar = () => {
                 </motion.a>
               ))}
               <div className="px-3 py-2 border-t border-gray-200">
-                <Button 
+                <Button
                   className="w-full bg-blue-800 hover:bg-blue-900 text-white"
                   onClick={() => {
                     navigate("/contact");
