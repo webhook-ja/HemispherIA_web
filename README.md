@@ -44,6 +44,28 @@ Una plataforma profesional para HemispherIA que conecta conocimiento, talento y 
    - EasyPanel se encargará de hacer build y deploy automáticamente en cada push a la rama principal
    - Puedes configurar despliegues en ramas específicas si lo deseas
 
+## Despliegue con Docker en EasyPanel
+
+La aplicación también puede publicarse mediante una imagen Docker, útil si prefieres controlar el runtime o reutilizar la misma imagen en varios entornos.
+
+1. **Construye la imagen localmente (opcional)**
+   ```bash
+   docker build -t tu-usuario/hemispheria:latest .
+   ```
+
+2. **Sube la imagen a tu registro**
+   ```bash
+   docker push tu-usuario/hemispheria:latest
+   ```
+
+3. **En EasyPanel**
+   - Crea un nuevo proyecto y elige la opción **Docker Image**
+   - Indica la URL de la imagen (por ejemplo, `tu-usuario/hemispheria:latest`)
+   - Define la variable de entorno `PORT=80` si EasyPanel lo requiere
+   - No necesitas comandos adicionales: la imagen ya expone el puerto 80 y ejecuta nginx con la SPA
+
+> El archivo `Dockerfile` utiliza una build multi-stage para compilar la aplicación con Node.js y servirla con nginx usando la configuración incluida en `nginx.conf`.
+
 ## Desarrollo local
 
 ### Prerrequisitos

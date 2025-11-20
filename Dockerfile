@@ -1,31 +1,19 @@
-# Etapa de build
-FROM node:18-alpine AS build
+# syntax=docker/dockerfile:1
 
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copiar archivos de dependencias
-COPY package*.json ./
+COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
+RUN npm install
 
-# Instalar dependencias
-RUN npm ci --only=production
-
-# Copiar el resto del código
 COPY . .
-
-# Build de la aplicación
 RUN npm run build
 
-# Etapa de producción
-FROM nginx:alpine
-
-# Copiar los archivos build al servidor nginx
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copiar configuración personalizada de nginx si existe
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Exponer puerto
+FROM nginx:1.27-alpine
+ENV PORT=80
 EXPOSE 80
 
-# Iniciar nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
+
 CMD ["nginx", "-g", "daemon off;"]
