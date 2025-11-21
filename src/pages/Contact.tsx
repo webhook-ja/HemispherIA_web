@@ -37,25 +37,43 @@ const ContactPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    try {
+      const response = await fetch('/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
       setIsSubmitted(true);
       toast({
         title: "Mensaje enviado",
         description: "Gracias por contactarnos. Nos pondremos en contacto pronto.",
       });
-      
-      // Reset form after 3 segundos
+
+      // Reset form after 3 seconds
       setTimeout(() => {
         setFormData({ name: "", email: "", organization: "", message: "" });
         setIsSubmitted(false);
       }, 3000);
-    }, 1500);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo enviar el mensaje. Por favor, intenta de nuevo.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const heroMenuItems = [
