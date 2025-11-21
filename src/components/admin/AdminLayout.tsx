@@ -2,14 +2,16 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { 
-  LayoutDashboard, 
-  FileText, 
-  Image, 
-  MessageSquare, 
+import {
+  LayoutDashboard,
+  FileText,
+  Image,
+  MessageSquare,
   Settings,
   Menu,
-  X
+  X,
+  PenTool,
+  Palette
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -23,6 +25,12 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       title: "Dashboard",
       href: "/admin",
       icon: LayoutDashboard,
+    },
+    {
+      title: "Page Builder",
+      href: "/admin/builder",
+      icon: PenTool,
+      highlight: true,
     },
     {
       title: "Contenido",
@@ -40,7 +48,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       icon: MessageSquare,
     },
     {
-      title: "Configuración",
+      title: "Configuracion",
       href: "/admin/settings",
       icon: Settings,
     },

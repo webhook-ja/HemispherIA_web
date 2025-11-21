@@ -3,6 +3,8 @@ import cors from 'cors';
 import pg from 'pg';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import multer from 'multer';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,9 +21,43 @@ const pool = new pg.Pool({
   password: process.env.DB_PASSWORD || 'M4x1m012',
 });
 
+// Ensure uploads directory exists
+const uploadsDir = path.join(__dirname, '../dist/uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Multer configuration for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, uniqueSuffix + ext);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif|webp|svg|pdf|mp4|webm/;
+    const ext = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mime = allowedTypes.test(file.mimetype);
+    if (ext && mime) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type'));
+    }
+  }
+});
+
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // API Routes
 
@@ -185,6 +221,261 @@ app.get('/api/stats', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch stats' });
   }
 });
+
+// ============================================
+// PAGE BUILDER API
+// ============================================
+
+// Pages API
+app.get('/api/pages', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM pages ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching pages:', error);
+    res.status(500).json({ error: 'Failed to fetch pages' });
+  }
+});
+
+app.get('/api/pages/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query('SELECT * FROM pages WHERE id = $1 OR slug = $1', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Page not found' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error fetching page:', error);
+    res.status(500).json({ error: 'Failed to fetch page' });
+  }
+});
+
+app.post('/api/pages', async (req, res) => {
+  try {
+    const { slug, title, description, html, css, components, styles, is_published, meta_title, meta_description } = req.body;
+
+    if (!slug || !title) {
+      return res.status(400).json({ error: 'Slug and title are required' });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO pages (slug, title, description, html, css, components, styles, is_published, meta_title, meta_description)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+      [slug, title, description || '', html || '', css || '', JSON.stringify(components || {}), JSON.stringify(styles || []), is_published || false, meta_title || title, meta_description || '']
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error creating page:', error);
+    res.status(500).json({ error: 'Failed to create page' });
+  }
+});
+
+app.put('/api/pages/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { slug, title, description, html, css, components, styles, is_published, meta_title, meta_description } = req.body;
+
+    const result = await pool.query(
+      `UPDATE pages SET slug = $1, title = $2, description = $3, html = $4, css = $5,
+       components = $6, styles = $7, is_published = $8, meta_title = $9, meta_description = $10,
+       updated_at = CURRENT_TIMESTAMP WHERE id = $11 RETURNING *`,
+      [slug, title, description, html, css, JSON.stringify(components || {}), JSON.stringify(styles || []), is_published, meta_title, meta_description, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Page not found' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error updating page:', error);
+    res.status(500).json({ error: 'Failed to update page' });
+  }
+});
+
+app.delete('/api/pages/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM pages WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting page:', error);
+    res.status(500).json({ error: 'Failed to delete page' });
+  }
+});
+
+// Blocks API
+app.get('/api/blocks', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM blocks ORDER BY category, name');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching blocks:', error);
+    res.status(500).json({ error: 'Failed to fetch blocks' });
+  }
+});
+
+app.post('/api/blocks', async (req, res) => {
+  try {
+    const { name, category, label, content, attributes, media } = req.body;
+
+    const result = await pool.query(
+      'INSERT INTO blocks (name, category, label, content, attributes, media) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+      [name, category || 'Custom', label || name, content, JSON.stringify(attributes || {}), media || '']
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error creating block:', error);
+    res.status(500).json({ error: 'Failed to create block' });
+  }
+});
+
+app.delete('/api/blocks/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM blocks WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting block:', error);
+    res.status(500).json({ error: 'Failed to delete block' });
+  }
+});
+
+// Assets API
+app.get('/api/assets', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM assets ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching assets:', error);
+    res.status(500).json({ error: 'Failed to fetch assets' });
+  }
+});
+
+app.delete('/api/assets/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Get the asset to delete the file
+    const asset = await pool.query('SELECT * FROM assets WHERE id = $1', [id]);
+    if (asset.rows.length > 0) {
+      const filePath = path.join(uploadsDir, asset.rows[0].filename);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
+    await pool.query('DELETE FROM assets WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting asset:', error);
+    res.status(500).json({ error: 'Failed to delete asset' });
+  }
+});
+
+// File Upload API
+app.post('/api/upload', upload.array('files', 10), async (req, res) => {
+  try {
+    const files = req.files;
+    const urls = [];
+
+    for (const file of files) {
+      const url = `/uploads/${file.filename}`;
+
+      // Save to database
+      await pool.query(
+        'INSERT INTO assets (filename, original_name, mime_type, size, url) VALUES ($1, $2, $3, $4, $5)',
+        [file.filename, file.originalname, file.mimetype, file.size, url]
+      );
+
+      urls.push(url);
+    }
+
+    res.json({ success: true, urls });
+  } catch (error) {
+    console.error('Error uploading files:', error);
+    res.status(500).json({ error: 'Failed to upload files' });
+  }
+});
+
+// Site Config API
+app.get('/api/site-config', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM site_config');
+    const config = {};
+    result.rows.forEach(row => {
+      config[row.key] = JSON.parse(row.value);
+    });
+    res.json(config);
+  } catch (error) {
+    console.error('Error fetching site config:', error);
+    res.status(500).json({ error: 'Failed to fetch site config' });
+  }
+});
+
+app.put('/api/site-config/:key', async (req, res) => {
+  try {
+    const { key } = req.params;
+    const { value } = req.body;
+
+    await pool.query(
+      'INSERT INTO site_config (key, value) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET value = $2, updated_at = CURRENT_TIMESTAMP',
+      [key, JSON.stringify(value)]
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error updating site config:', error);
+    res.status(500).json({ error: 'Failed to update site config' });
+  }
+});
+
+// Templates API
+app.get('/api/templates', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM templates ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching templates:', error);
+    res.status(500).json({ error: 'Failed to fetch templates' });
+  }
+});
+
+app.post('/api/templates', async (req, res) => {
+  try {
+    const { name, category, thumbnail, html, css, components, styles } = req.body;
+
+    const result = await pool.query(
+      'INSERT INTO templates (name, category, thumbnail, html, css, components, styles) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+      [name, category || 'General', thumbnail || '', html || '', css || '', JSON.stringify(components || {}), JSON.stringify(styles || [])]
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error creating template:', error);
+    res.status(500).json({ error: 'Failed to create template' });
+  }
+});
+
+app.delete('/api/templates/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await pool.query('DELETE FROM templates WHERE id = $1', [id]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting template:', error);
+    res.status(500).json({ error: 'Failed to delete template' });
+  }
+});
+
+// ============================================
+// STATIC FILES & SPA ROUTING
+// ============================================
 
 // Serve static files from the dist directory
 app.use(express.static(path.join(__dirname, '../dist')));
