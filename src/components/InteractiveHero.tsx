@@ -29,7 +29,7 @@ const InteractiveHero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              HemispherIA impulsa soluciones innovadoras basadas en inteligencia artificial, comunicación estratégica y gestión del conocimiento. Creamos puentes entre la tecnología y el impacto social.
+              HemispherIA impulsa soluciones innovadoras basadas en inteligencia artificial, comunicación estratégica e intermediación del conocimiento. Creamos puentes entre la tecnología y el impacto social.
             </motion.p>
             
             <motion.div 
