@@ -18,8 +18,12 @@ const useSound = () => {
     };
   }, []);
 
-  const playHoverSound = () => {
+  const playHoverSound = async () => {
     if (!audioContext) return;
+
+    if (audioContext.state === 'suspended') {
+      await audioContext.resume();
+    }
 
     try {
       const oscillator = audioContext.createOscillator();

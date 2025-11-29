@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -423,6 +424,9 @@ const MediaManager = () => {
         <DialogContent className="max-w-3xl">
           <DialogHeader>
             <DialogTitle className="truncate pr-8">{selectedAsset?.original_name}</DialogTitle>
+            <DialogDescription>
+              Vista previa del archivo y opciones disponibles.
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             {selectedAsset?.mime_type.startsWith('image/') && (
