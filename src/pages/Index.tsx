@@ -9,7 +9,6 @@ import AnimatedServicesSection from "@/components/AnimatedServicesSection";
 import AnimatedProjectsSection from "@/components/AnimatedProjectsSection";
 import AnimatedContactSection from "@/components/AnimatedContactSection";
 import AnimatedFooter from "@/components/AnimatedFooter";
-import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
   return (
@@ -22,7 +21,6 @@ const Index = () => {
       <AnimatedProjectsSection />
       <AnimatedContactSection />
       <AnimatedFooter />
-      <MadeWithDyad />
     </div>
   );
 };
