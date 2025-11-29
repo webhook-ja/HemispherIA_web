@@ -34,7 +34,7 @@ const AnimatedContactSection = () => {
                 <Mail className="h-6 w-6 text-blue-800 mt-1 mr-4" />
                 <div>
                   <h4 className="font-semibold text-gray-900">Email</h4>
-                  <p className="text-gray-600">contact@hemispheria.org</p>
+                  <p className="text-gray-600">info@hemispher-ia.org</p>
                 </div>
               </div>
               

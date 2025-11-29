@@ -94,7 +94,7 @@ const ContactPage = () => {
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email",
-      content: "contact@hemispheria.org",
+      content: "info@hemispher-ia.org",
       highlight: false
     },
     {

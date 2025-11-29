@@ -383,7 +383,7 @@ const PageBuilder: React.FC = () => {
                     </div>
                     <div>
                       <h4 class="font-semibold mb-4">Contacto</h4>
-                      <p class="text-gray-400">contact@hemispheria.org</p>
+                      <p class="text-gray-400">info@hemispher-ia.org</p>
                     </div>
                   </div>
                   <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
