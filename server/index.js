@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import multer from 'multer';
 import fs from 'fs';
 import crypto from 'crypto';
+import { sendContactEmails } from './email.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -295,6 +296,14 @@ app.post('/api/contacts', async (req, res) => {
       'INSERT INTO contacts (name, email, organization, message) VALUES ($1, $2, $3, $4) RETURNING *',
       [name.trim(), email.trim().toLowerCase(), organization?.trim() || null, message.trim()]
     );
+
+    // Send email notifications
+    await sendContactEmails({
+      name: name.trim(),
+      email: email.trim(),
+      organization: organization?.trim() || '',
+      message: message.trim()
+    });
 
     res.status(201).json({ success: true, contact: result.rows[0] });
   } catch (error) {

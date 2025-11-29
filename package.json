@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "pg": "^8.11.3",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7",
     "grapesjs": "^0.21.10",
     "grapesjs-preset-webpage": "^1.0.3",
     "grapesjs-blocks-basic": "^1.0.2",
