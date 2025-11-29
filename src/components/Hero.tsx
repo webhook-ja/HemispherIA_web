@@ -13,7 +13,7 @@ const Hero = () => {
               Conectamos conocimiento, talento y tecnología para un futuro sostenible en América Latina y el Caribe
             </h1>
             <p className="mt-6 text-lg text-gray-600">
-              HemispherIA impulsa soluciones innovadoras basadas en inteligencia artificial, comunicación estratégica y gestión del conocimiento. Creamos puentes entre la tecnología y el impacto social.
+              HemispherIA impulsa soluciones innovadoras basadas en inteligencia artificial, comunicación estratégica e intermediación del conocimiento. Creamos puentes entre la tecnología y el impacto social.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700">

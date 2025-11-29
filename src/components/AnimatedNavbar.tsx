@@ -1,17 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Globe } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const AnimatedNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [language, setLanguage] = useState("ES");
   const navigate = useNavigate();
 
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const navItems = [
@@ -19,6 +20,7 @@ const AnimatedNavbar = () => {
     { name: "QUIÉNES SOMOS", href: "/about" },
     { name: "QUÉ HACEMOS", href: "/services" },
     { name: "PROYECTOS", href: "/projects" },
+    { name: "INFORMACIÓN PÚBLICA", href: "/public-info" },
     { name: "CONTACTO", href: "/contact" },
   ];
 
@@ -35,15 +37,12 @@ const AnimatedNavbar = () => {
               className="flex w-full items-center justify-center focus:outline-none md:w-auto md:justify-start"
               onClick={() => navigate("/")}
             >
-              <img
-                src="/logo.jpeg"
-                alt="HemispherIA"
-                className="w-full max-h-32 object-contain md:max-h-16"
-              />
+              <span className="text-xl font-bold text-blue-800">HemispherIA</span>
             </button>
           </motion.div>
-
-          <div className="hidden md:flex md:items-center md:space-x-8">
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex md:items-center md:gap-6">
             {navItems.map((item, index) => (
               <motion.a
                 key={item.name}
@@ -65,66 +64,74 @@ const AnimatedNavbar = () => {
                 />
               </motion.a>
             ))}
-
-            <Button
-              className="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2"
-              onClick={() => navigate("/contact")}
-            >
-              Contacto
-            </Button>
+            
+            {/* Language Selector */}
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1 border-blue-800 text-blue-800 hover:bg-blue-50"
+              >
+                <Globe className="h-4 w-4" />
+                <span>{language}</span>
+              </Button>
+            </motion.div>
           </div>
-
-          <div className="flex w-full items-center justify-center md:hidden">
-            <button
+          
+          {/* Mobile menu button */}
+          <div className="absolute right-4 top-4 md:hidden">
+            <motion.button
+              whileTap={{ scale: 0.95 }}
               onClick={toggleMenu}
               className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:text-blue-800 focus:outline-none"
             >
-              {isMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
-            </button>
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" />
+              ) : (
+                <Menu className="block h-6 w-6" />
+              )}
+            </motion.button>
           </div>
         </div>
       </div>
-
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            className="md:hidden"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="flex flex-col items-center gap-2 bg-white px-4 pt-4 pb-6 shadow-lg">
-              {navItems.map((item) => (
-                <motion.a
-                  key={item.name}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate(item.href);
-                    setIsMenuOpen(false);
-                  }}
-                  className="block w-full rounded-md px-3 py-2 text-center text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-800 cursor-pointer"
-                  whileHover={{ x: 5 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-              <div className="w-full border-t border-gray-200 pt-3">
-                <Button
-                  className="w-full bg-blue-800 hover:bg-blue-900 text-white"
-                  onClick={() => {
-                    navigate("/contact");
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Contacto
-                </Button>
-              </div>
+      
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className="md:hidden"
+        >
+          <div className="space-y-1 bg-white px-2 pb-3 pt-2 shadow-lg sm:px-3">
+            {navItems.map((item) => (
+              <motion.a
+                key={item.name}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(item.href);
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full rounded-md px-3 py-2 text-center text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-800 cursor-pointer"
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {item.name}
+              </motion.a>
+            ))}
+            <div className="w-full border-t border-gray-200 pt-3">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full flex items-center justify-center gap-1 border-blue-800 text-blue-800"
+              >
+                <Globe className="h-4 w-4" />
+                <span>{language}</span>
+              </Button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+        </motion.div>
+      )}
     </nav>
   );
 };
