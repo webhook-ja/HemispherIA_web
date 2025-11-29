@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const AnimatedFooter = () => {
   return (
@@ -28,10 +29,10 @@ const AnimatedFooter = () => {
           >
             <h4 className="font-semibold mb-4">Nuestra Organización</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#about" className="hover:text-white transition-colors">Quiénes Somos</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Qué Hacemos</a></li>
-              <li><a href="#projects" className="hover:text-white transition-colors">Proyectos</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contacto</a></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">Quiénes Somos</Link></li>
+              <li><Link to="/services" className="hover:text-white transition-colors">Qué Hacemos</Link></li>
+              <li><Link to="/projects" className="hover:text-white transition-colors">Proyectos</Link></li>
+              <li><Link to="/contact" className="hover:text-white transition-colors">Contacto</Link></li>
             </ul>
           </motion.div>
           

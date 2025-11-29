@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
+import AnimatedFooter from "@/components/AnimatedFooter";
 
 const ProjectsPage = () => {
   const [selectedProject, setSelectedProject] = useState(0);
@@ -417,6 +418,8 @@ const ProjectsPage = () => {
           </div>
         </div>
       </section>
+
+      <AnimatedFooter />
     </div>
   );
 };

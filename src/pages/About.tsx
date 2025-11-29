@@ -14,6 +14,7 @@ import {
   Pause
 } from "lucide-react";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
+import AnimatedFooter from "@/components/AnimatedFooter";
 
 const AboutPage = () => {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -299,6 +300,8 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
+
+      <AnimatedFooter />
     </div>
   );
 };

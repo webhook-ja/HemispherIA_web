@@ -15,6 +15,7 @@ import {
   Shield,
 } from "lucide-react";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
+import AnimatedFooter from "@/components/AnimatedFooter";
 
 const ServicesPage = () => {
   const [activeService, setActiveService] = useState(0);
@@ -406,6 +407,8 @@ const ServicesPage = () => {
           </div>
         </div>
       </section>
+
+      <AnimatedFooter />
     </div>
   );
 };
