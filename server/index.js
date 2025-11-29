@@ -118,7 +118,7 @@ function generateToken() {
 }
 
 // Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, '../dist/uploads');
+const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
@@ -586,7 +586,7 @@ app.get('/api/activity', authenticate, async (req, res) => {
       LIMIT $1
     `, [limit]);
     res.json(result.rows);
-  } catch (error) {
+  } catch (error).
     res.status(500).json({ error: 'Failed to fetch activity log' });
   }
 });
