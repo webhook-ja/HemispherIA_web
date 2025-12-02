@@ -30,6 +30,7 @@ const AboutPage = () => {
       role: "Director y Fundador",
       location: "Ciudad de Panamá",
       photo: "/team/wolfgang-friedl.jpg",
+      photoPosition: "center center",
       gradient: "from-blue-600 to-indigo-600"
     },
     {
@@ -37,6 +38,7 @@ const AboutPage = () => {
       role: "Secretaria Ejecutiva",
       location: "Ciudad de Panamá",
       photo: "/team/erika-martinez.jpg",
+      photoPosition: "center center",
       gradient: "from-purple-600 to-pink-600"
     },
     {
@@ -44,6 +46,7 @@ const AboutPage = () => {
       role: "Asistente de Logística y Servicios Generales",
       location: "Ciudad de Panamá",
       photo: "/team/alberto-chavarria.jpg",
+      photoPosition: "center 65%",
       gradient: "from-green-600 to-teal-600"
     },
     {
@@ -51,6 +54,7 @@ const AboutPage = () => {
       role: "Asociado de Alianzas / Consulting & AI Developer",
       location: "Madrid",
       photo: "/team/jorge-acuna.jpg",
+      photoPosition: "center center",
       gradient: "from-orange-600 to-red-600"
     }
   ];
@@ -275,6 +279,7 @@ const AboutPage = () => {
                         src={member.photo}
                         alt={member.name}
                         className="w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white"
+                        style={{ objectPosition: member.photoPosition }}
                       />
                       <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
                       {activeCard === index && (
