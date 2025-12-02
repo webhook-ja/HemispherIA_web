@@ -56,7 +56,7 @@ const ProjectsPage = () => {
         "Juventud por el Clima",
         "ONG Ambiental Brasil",
       ],
-      image: "climate",
+      image: "/images/hemispher-ia-desarrollo-web-01.jpeg",
       tags: ["Clima", "Juventud", "Influencers"],
     },
     {
@@ -204,8 +204,8 @@ const ProjectsPage = () => {
                   >
                     <Card
                       className={`h-full cursor-pointer ${selectedProject === project.id
-                          ? "ring-2 ring-blue-500"
-                          : ""
+                        ? "ring-2 ring-blue-500"
+                        : ""
                         }`}
                     >
                       <img
