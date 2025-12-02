@@ -40,7 +40,7 @@ const AnimatedNavbar = () => {
               <img
                 src="/logo.jpeg"
                 alt="Hemispher-IA"
-                className="h-10 w-auto"
+                className="h-16 w-auto"
               />
             </button>
           </motion.div>

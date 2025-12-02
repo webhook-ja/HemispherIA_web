@@ -2,8 +2,10 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <section id="home" className="pt-16 bg-gradient-to-r from-blue-50 to-indigo-50 min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -16,13 +18,13 @@ const Hero = () => {
               Hemispher-IA impulsa soluciones innovadoras basadas en inteligencia artificial, comunicación estratégica e intermediación del conocimiento. Creamos puentes entre la tecnología y el impacto social.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700" onClick={() => navigate("/projects")}>
                 Explora nuestros proyectos
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" onClick={() => navigate("/contact")}>
                 Únete a la red
               </Button>
-              <Button size="lg" variant="ghost">
+              <Button size="lg" variant="ghost" onClick={() => navigate("/about")}>
                 Conoce más
               </Button>
             </div>
