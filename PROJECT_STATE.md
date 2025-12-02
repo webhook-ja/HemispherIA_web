@@ -1,6 +1,6 @@
 # Hemispher-IA - Estado del Proyecto
 
-**Última actualización:** 2025-11-27
+**Última actualización:** 2025-12-02
 **Estado:** ✅ PRODUCCIÓN - FUNCIONANDO CORRECTAMENTE
 
 ## 🌐 Información de Despliegue
@@ -127,6 +127,16 @@ NODE_ENV=production     # Environment
 ```
 
 ## 📝 Historial de Cambios Recientes
+
+### 2025-12-02: Despliegue de Mantenimiento ✅
+
+**Acción:**
+- Despliegue completo realizado mediante agente AI.
+- Subida de imágenes optimizadas para SEO (`hemispher-ia-desarrollo-web-XX`).
+- Verificación de estado del servicio en VPS.
+
+**Estado:**
+- Servicio operando correctamente en puerto 80.
 
 ### 2025-11-27: Corrección de Menú Duplicado ✅
 

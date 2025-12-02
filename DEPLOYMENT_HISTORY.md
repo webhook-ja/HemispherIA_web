@@ -4,6 +4,38 @@ Este documento registra todos los despliegues y cambios importantes realizados e
 
 ---
 
+## 2025-12-02 22:50 UTC - Actualización Manual y Despliegue ✅
+
+**Deployado por:** Antigravity (Google Deepmind Agent)
+**Estado:** ✅ EXITOSO
+**URL:** https://n8n-hemiph.v2j42m.easypanel.host
+
+### Cambios Realizados
+
+#### 1. Subida de Imágenes SEO
+**Problema/Necesidad:**
+- Actualización de activos visuales con optimización SEO.
+
+**Acciones:**
+- Renombrado de imágenes a formato `hemispher-ia-desarrollo-web-XX`.
+- Subida a carpeta `public/images` en VPS.
+- Re-despliegue del servicio.
+
+#### 2. Despliegue de Mantenimiento
+**Problema/Necesidad:**
+- Actualización y verificación del estado del despliegue actual.
+
+**Acciones:**
+- Verificación de credenciales y acceso SSH.
+- Empaquetado manual de archivos (`deploy.tar.gz`).
+- Despliegue en VPS mediante Docker Swarm.
+
+### Verificación Post-Deploy
+- ✅ Servicio Docker `n8n_hemiph` actualizado y corriendo.
+- ✅ Verificación de logs y estado del servicio.
+
+---
+
 ## 2025-11-27 22:40 UTC - Corrección Menú + Fix PORT ✅
 
 **Deployado por:** Claude Code AI
