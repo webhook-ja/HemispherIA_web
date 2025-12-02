@@ -29,24 +29,28 @@ const AboutPage = () => {
       name: "Wolfgang Friedl",
       role: "Director y Fundador",
       location: "Ciudad de Panamá",
+      photo: "/team/wolfgang-friedl.jpg",
       gradient: "from-blue-600 to-indigo-600"
     },
     {
       name: "Erika Martínez Xiques",
       role: "Secretaria Ejecutiva",
       location: "Ciudad de Panamá",
+      photo: "/team/erika-martinez.jpg",
       gradient: "from-purple-600 to-pink-600"
     },
     {
       name: "Alberto Chavarria",
       role: "Asistente de Logística y Servicios Generales",
       location: "Ciudad de Panamá",
+      photo: "/team/alberto-chavarria.jpg",
       gradient: "from-green-600 to-teal-600"
     },
     {
       name: "Jorge Acuña R",
       role: "Asociado de Alianzas / Consulting & AI Developer",
       location: "Madrid",
+      photo: "/team/jorge-acuna.jpg",
       gradient: "from-orange-600 to-red-600"
     }
   ];
@@ -264,18 +268,23 @@ const AboutPage = () => {
                 onHoverEnd={() => setActiveCard(-1)}
               >
                 <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-all duration-300 group-hover:shadow-2xl">
-                  {/* Avatar con gradiente */}
+                  {/* Foto de perfil */}
                   <div className="relative pt-12 pb-8 px-6">
-                    <div className={`relative mx-auto w-24 h-24 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center shadow-lg`}>
-                      <Users className="h-12 w-12 text-white" />
+                    <div className="relative mx-auto w-32 h-32">
+                      <img
+                        src={member.photo}
+                        alt={member.name}
+                        className="w-full h-full rounded-full object-cover shadow-lg ring-4 ring-white"
+                      />
+                      <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${member.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
                       {activeCard === index && (
                         <motion.div
-                          className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center shadow-md"
+                          className="absolute -top-2 -right-2 w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center shadow-md"
                           initial={{ scale: 0, rotate: -180 }}
                           animate={{ scale: 1, rotate: 0 }}
                           transition={{ type: "spring", stiffness: 300, damping: 20 }}
                         >
-                          <Award className="h-4 w-4 text-yellow-900" />
+                          <Award className="h-5 w-5 text-yellow-900" />
                         </motion.div>
                       )}
                     </div>
