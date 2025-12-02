@@ -37,10 +37,14 @@ const AnimatedNavbar = () => {
               className="flex w-full items-center justify-center focus:outline-none md:w-auto md:justify-start"
               onClick={() => navigate("/")}
             >
-              <span className="text-xl font-bold text-blue-800">Hemispher-IA</span>
+              <img
+                src="/logo.jpeg"
+                alt="Hemispher-IA"
+                className="h-10 w-auto"
+              />
             </button>
           </motion.div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:gap-6">
             {navItems.map((item, index) => (
@@ -64,7 +68,7 @@ const AnimatedNavbar = () => {
                 />
               </motion.a>
             ))}
-            
+
             {/* Language Selector */}
             <motion.div whileHover={{ scale: 1.05 }}>
               <Button
@@ -77,7 +81,7 @@ const AnimatedNavbar = () => {
               </Button>
             </motion.div>
           </div>
-          
+
           {/* Mobile menu button */}
           <div className="absolute right-4 top-4 md:hidden">
             <motion.button
@@ -94,7 +98,7 @@ const AnimatedNavbar = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <motion.div
