@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PublicInfo from "./pages/PublicInfo";
 import { useEffect } from "react";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <PageTracker />
           <Routes>
             <Route path="/" element={<Index />} />
