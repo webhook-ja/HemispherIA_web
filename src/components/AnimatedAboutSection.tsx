@@ -28,7 +28,7 @@ const AnimatedAboutSection = () => {
           <div className="p-8">
             <h3 className="text-xl font-bold text-blue-800 mb-4">Nuestra Filosofía</h3>
             <p className="font-semibold text-gray-800 mb-3">
-              En el corazón de HemispherIA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
+              En el corazón de Hemispher-IA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
             </p>
             <p className="text-gray-600">
               Creemos en la inteligencia colectiva, la transparencia de datos y la inclusión como pilares de la transformación digital.

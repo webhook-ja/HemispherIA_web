@@ -1,5 +1,5 @@
 /**
- * Email Service for HemispherIA
+ * Email Service for Hemispher-IA
  * Sends contact form notifications via Hostinger SMTP
  */
 
@@ -33,10 +33,10 @@ export async function sendContactEmails(contactData) {
   try {
     // Email to admin/team
     const adminEmail = {
-      from: '"HemispherIA Website" <info@hemispher-ia.org>',
+      from: '"Hemispher-IA Website" <info@hemispher-ia.org>',
       to: 'info@hemispher-ia.org', // Change this to the admin email if different
       replyTo: email,
-      subject: `[HemispherIA] Nuevo mensaje de contacto de ${name}`,
+      subject: `[Hemispher-IA] Nuevo mensaje de contacto de ${name}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -154,7 +154,7 @@ export async function sendContactEmails(contactData) {
           </div>
 
           <div class="footer">
-            <p>Este mensaje fue enviado desde el formulario de contacto de HemispherIA</p>
+            <p>Este mensaje fue enviado desde el formulario de contacto de Hemispher-IA</p>
             <p>🌐 <a href="https://hemispher-ia.org" style="color: #60a5fa; text-decoration: none;">hemispher-ia.org</a></p>
             <p style="margin-top: 15px; color: #6b7280;">
               Fecha: ${new Date().toLocaleString('es-ES', {
@@ -189,9 +189,9 @@ Fecha: ${new Date().toLocaleString('es-ES')}
 
     // Auto-reply to the contact
     const autoReply = {
-      from: '"HemispherIA" <info@hemispher-ia.org>',
+      from: '"Hemispher-IA" <info@hemispher-ia.org>',
       to: email,
-      subject: 'Hemos recibido tu mensaje - HemispherIA',
+      subject: 'Hemos recibido tu mensaje - Hemispher-IA',
       html: `
         <!DOCTYPE html>
         <html>
@@ -262,13 +262,13 @@ ${message}
             <p>Mientras tanto, te invitamos a conocer más sobre nuestros proyectos en nuestra web:</p>
             <p style="text-align: center;">
               <a href="https://hemispher-ia.org" style="display: inline-block; background: #3b82f6; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                Visitar HemispherIA
+                Visitar Hemispher-IA
               </a>
             </p>
           </div>
 
           <div class="footer">
-            <p><strong>HemispherIA</strong></p>
+            <p><strong>Hemispher-IA</strong></p>
             <p>Conectando conocimiento, talento y tecnología</p>
             <p>🌐 <a href="https://hemispher-ia.org" style="color: #60a5fa; text-decoration: none;">hemispher-ia.org</a></p>
             <p>📧 <a href="mailto:info@hemispher-ia.org" style="color: #60a5fa; text-decoration: none;">info@hemispher-ia.org</a></p>
@@ -287,10 +287,10 @@ ${message}
 Nos pondremos en contacto contigo a la brevedad posible en ${email}.
 
 Saludos,
-El equipo de HemispherIA
+El equipo de Hemispher-IA
 
 ---
-HemispherIA
+Hemispher-IA
 Conectando conocimiento, talento y tecnología
 🌐 hemispher-ia.org
 📧 info@hemispher-ia.org

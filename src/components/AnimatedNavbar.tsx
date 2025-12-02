@@ -37,7 +37,7 @@ const AnimatedNavbar = () => {
               className="flex w-full items-center justify-center focus:outline-none md:w-auto md:justify-start"
               onClick={() => navigate("/")}
             >
-              <span className="text-xl font-bold text-blue-800">HemispherIA</span>
+              <span className="text-xl font-bold text-blue-800">Hemispher-IA</span>
             </button>
           </motion.div>
           

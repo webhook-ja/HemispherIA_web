@@ -46,7 +46,7 @@ const JoinSection = () => {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 mb-4">
-                Espacio para presentar ideas o prototipos en colaboración con HemispherIA.
+                Espacio para presentar ideas o prototipos en colaboración con Hemispher-IA.
               </p>
               <Button className="w-full">Enviar propuesta</Button>
             </CardContent>

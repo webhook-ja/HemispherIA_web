@@ -427,7 +427,7 @@ const ContactPage = () => {
                 answer: "El tiempo varía según la complejidad, pero nuestros proyectos piloto típicamente se completan en 6-12 meses."
               },
               {
-                question: "¿Qué tipo de organizaciones colaboran con HemispherIA?",
+                question: "¿Qué tipo de organizaciones colaboran con Hemispher-IA?",
                 answer: "Trabajamos con gobiernos, ONGs, instituciones académicas y empresas del sector privado comprometidas con el impacto social."
               },
               {

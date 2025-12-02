@@ -1,6 +1,6 @@
 // src/lib/config.ts
 const config = {
-  appName: import.meta.env.VITE_APP_NAME || "HemispherIA",
+  appName: import.meta.env.VITE_APP_NAME || "Hemispher-IA",
   apiURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
   
   // Analytics

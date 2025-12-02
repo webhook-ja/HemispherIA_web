@@ -15,7 +15,7 @@ const AnimatedFooter = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-xl font-bold mb-4">HemispherIA</h3>
+            <h3 className="text-xl font-bold mb-4">Hemispher-IA</h3>
             <p className="text-gray-400">
               Conectamos conocimiento, talento y tecnología para un futuro sostenible en América Latina y el Caribe.
             </p>
@@ -73,7 +73,7 @@ const AnimatedFooter = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <p>© {new Date().getFullYear()} HemispherIA. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} Hemispher-IA. Todos los derechos reservados.</p>
         </motion.div>
       </div>
     </footer>

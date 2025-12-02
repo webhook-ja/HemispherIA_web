@@ -41,7 +41,7 @@ const AnimatedJoinSection = () => {
           <div className="p-6">
             <h3 className="text-xl font-bold text-indigo-600 mb-4">Bolsa de Innovación</h3>
             <p className="text-gray-700 mb-4">
-              Espacio para presentar ideas o prototipos en colaboración con HemispherIA.
+              Espacio para presentar ideas o prototipos en colaboración con Hemispher-IA.
             </p>
             <Button className="w-full bg-indigo-600 hover:bg-indigo-700">
               Enviar propuesta

@@ -1,4 +1,4 @@
-# HemispherIA - Estado del Proyecto
+# Hemispher-IA - Estado del Proyecto
 
 **Última actualización:** 2025-11-27
 **Estado:** ✅ PRODUCCIÓN - FUNCIONANDO CORRECTAMENTE

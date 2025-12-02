@@ -1,6 +1,6 @@
-# HemispherIA Website
+# Hemispher-IA Website
 
-Una plataforma profesional para HemispherIA que conecta conocimiento, talento y tecnología para un futuro sostenible en América Latina y el Caribe.
+Una plataforma profesional para Hemispher-IA que conecta conocimiento, talento y tecnología para un futuro sostenible en América Latina y el Caribe.
 
 ## Características
 
@@ -168,7 +168,7 @@ Para implementar estas características, se pueden integrar servicios como:
 
 ## Licencia
 
-Este proyecto es privado y propiedad de HemispherIA.
+Este proyecto es privado y propiedad de Hemispher-IA.
 
 ## Contacto
 

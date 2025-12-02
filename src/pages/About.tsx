@@ -153,7 +153,7 @@ const AboutPage = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestra Filosofía</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              En el corazón de HemispherIA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
+              En el corazón de Hemispher-IA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
             </p>
           </div>
 

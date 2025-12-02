@@ -31,11 +31,11 @@ const AboutSection = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Filosofía HemispherIA</CardTitle>
+              <CardTitle>Filosofía Hemispher-IA</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="font-semibold text-blue-600 mb-2">
-                En el corazón de HemispherIA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
+                En el corazón de Hemispher-IA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
               </p>
               <p>
                 Creemos en la inteligencia colectiva, la transparencia de datos y la inclusión como pilares de la transformación digital.

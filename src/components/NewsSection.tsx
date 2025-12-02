@@ -7,7 +7,7 @@ const NewsSection = () => {
   const newsItems = [
     {
       title: "Nuevo acuerdo con universidades latinoamericanas",
-      excerpt: "HemispherIA firma colaboración con 15 universidades para impulsar investigación en IA ética.",
+      excerpt: "Hemispher-IA firma colaboración con 15 universidades para impulsar investigación en IA ética.",
       date: "15 de mayo, 2023"
     },
     {

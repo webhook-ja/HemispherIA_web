@@ -1,6 +1,6 @@
-# HemispherIA - Historial de Despliegues
+# Hemispher-IA - Historial de Despliegues
 
-Este documento registra todos los despliegues y cambios importantes realizados en el proyecto HemispherIA.
+Este documento registra todos los despliegues y cambios importantes realizados en el proyecto Hemispher-IA.
 
 ---
 

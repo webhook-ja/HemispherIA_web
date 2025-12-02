@@ -363,7 +363,7 @@ const PageBuilder: React.FC = () => {
                 <div class="container mx-auto px-4">
                   <div class="grid grid-cols-4 gap-8 mb-8">
                     <div>
-                      <h3 class="text-xl font-bold mb-4">HemispherIA</h3>
+                      <h3 class="text-xl font-bold mb-4">Hemispher-IA</h3>
                       <p class="text-gray-400">Conectando conocimiento, talento y tecnologia.</p>
                     </div>
                     <div>
@@ -387,7 +387,7 @@ const PageBuilder: React.FC = () => {
                     </div>
                   </div>
                   <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-                    <p>© 2024 HemispherIA. Todos los derechos reservados.</p>
+                    <p>© 2024 Hemispher-IA. Todos los derechos reservados.</p>
                   </div>
                 </div>
               </footer>

@@ -39,7 +39,7 @@ const AnimatedHubSection = () => {
 
         <AnimatedCard>
           <div className="p-6">
-            <h3 className="text-xl font-bold text-yellow-600 mb-4">Red HemispherIA</h3>
+            <h3 className="text-xl font-bold text-yellow-600 mb-4">Red Hemispher-IA</h3>
             <p className="text-gray-700 mb-4">
               Mapa interactivo de aliados y miembros. Formularios de inscripción, perfiles y enlaces a iniciativas locales.
             </p>

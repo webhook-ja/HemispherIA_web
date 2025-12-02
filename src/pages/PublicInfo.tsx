@@ -32,7 +32,7 @@ const PublicInfoPage = () => {
 
   const newsItems = [
     {
-      title: "Lanzamiento de HemispherIA: Nueva era para la IA ética en América Latina",
+      title: "Lanzamiento de Hemispher-IA: Nueva era para la IA ética en América Latina",
       date: "2024-11-24",
       category: "Institucional",
       excerpt: "Presentamos oficialmente nuestra iniciativa comprometida con el desarrollo sostenible..."
@@ -47,7 +47,7 @@ const PublicInfoPage = () => {
 
   const pressReleases = [
     {
-      title: "HemispherIA anuncia alianza estratégica con organismos internacionales",
+      title: "Hemispher-IA anuncia alianza estratégica con organismos internacionales",
       date: "2024-11-22",
       file: "comunicado-alianza-2024.pdf"
     }
@@ -72,7 +72,7 @@ const PublicInfoPage = () => {
 
   const statements = [
     {
-      title: "Ética en la IA: Posición de HemispherIA sobre privacidad de datos",
+      title: "Ética en la IA: Posición de Hemispher-IA sobre privacidad de datos",
       date: "2024-11-15",
       tags: ["Ética", "Privacidad", "Derechos Digitales"]
     },
@@ -115,7 +115,7 @@ const PublicInfoPage = () => {
               📰 Información Pública
             </h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              En HemispherIA creemos en la transparencia, el diálogo abierto y la difusión del conocimiento. Aquí encontrarás las últimas noticias, comunicados oficiales, actualizaciones de proyectos, eventos destacados y recursos públicos que dan cuenta de nuestro trabajo por un futuro sostenible en América Latina y el Caribe.
+              En Hemispher-IA creemos en la transparencia, el diálogo abierto y la difusión del conocimiento. Aquí encontrarás las últimas noticias, comunicados oficiales, actualizaciones de proyectos, eventos destacados y recursos públicos que dan cuenta de nuestro trabajo por un futuro sostenible en América Latina y el Caribe.
             </p>
           </motion.div>
         </div>
@@ -196,7 +196,7 @@ const PublicInfoPage = () => {
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Comunicados de Prensa</h2>
                 <p className="text-gray-600 mb-8">
-                  Información oficial para medios de comunicación y aliados. Aquí publicamos anuncios institucionales, lanzamientos de iniciativas y declaraciones públicas de HemispherIA.
+                  Información oficial para medios de comunicación y aliados. Aquí publicamos anuncios institucionales, lanzamientos de iniciativas y declaraciones públicas de Hemispher-IA.
                 </p>
               </div>
 
@@ -270,7 +270,7 @@ const PublicInfoPage = () => {
               <div className="max-w-2xl mx-auto text-center">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Boletines</h2>
                 <p className="text-gray-600 mb-8">
-                  Mantente al día con lo que hacemos. Nuestro boletín mensual reúne novedades, recursos destacados, oportunidades y voces del ecosistema HemispherIA. ¡Suscríbete y sé parte de la conversación!
+                  Mantente al día con lo que hacemos. Nuestro boletín mensual reúne novedades, recursos destacados, oportunidades y voces del ecosistema Hemispher-IA. ¡Suscríbete y sé parte de la conversación!
                 </p>
 
                 <Card className="p-8">
@@ -318,7 +318,7 @@ const PublicInfoPage = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <h4 className="font-semibold">Boletín #1 - Noviembre 2024</h4>
-                          <p className="text-sm text-gray-500">Lanzamiento oficial de HemispherIA</p>
+                          <p className="text-sm text-gray-500">Lanzamiento oficial de Hemispher-IA</p>
                         </div>
                         <Download className="h-5 w-5 text-gray-400" />
                       </div>
@@ -333,7 +333,7 @@ const PublicInfoPage = () => {
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Declaraciones Públicas</h2>
                 <p className="text-gray-600 mb-8">
-                  HemispherIA emite posiciones públicas sobre temas clave relacionados con la ética en la inteligencia artificial, la sostenibilidad digital, los derechos digitales y el desarrollo regional. Aquí encontrarás nuestros pronunciamientos institucionales.
+                  Hemispher-IA emite posiciones públicas sobre temas clave relacionados con la ética en la inteligencia artificial, la sostenibilidad digital, los derechos digitales y el desarrollo regional. Aquí encontrarás nuestros pronunciamientos institucionales.
                 </p>
               </div>
 

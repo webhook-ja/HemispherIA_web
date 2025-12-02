@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HemispherIA is a professional web platform connecting knowledge, talent, and technology for sustainable development in Latin America. It's a React + TypeScript SPA with an Express.js backend serving both the API and static files.
+Hemispher-IA is a professional web platform connecting knowledge, talent, and technology for sustainable development in Latin America. It's a React + TypeScript SPA with an Express.js backend serving both the API and static files.
 
 ## Commands
 

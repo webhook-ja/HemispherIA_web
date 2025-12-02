@@ -46,7 +46,7 @@ const HubSection = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Red HemispherIA</CardTitle>
+              <CardTitle>Red Hemispher-IA</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 mb-4">

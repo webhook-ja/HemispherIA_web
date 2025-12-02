@@ -81,7 +81,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
       <div className={`${sidebarOpen ? "block" : "hidden"} md:block md:w-64 bg-white border-r fixed md:relative z-50 h-full`}>
         <div className="flex items-center justify-between p-4 border-b">
           <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            HemispherIA
+            Hemispher-IA
           </h1>
           <Button
             variant="ghost"
