@@ -203,13 +203,16 @@ const ProjectsPage = () => {
                     onClick={() => setSelectedProject(project.id)}
                   >
                     <Card
-                      className={`h-full cursor-pointer ${
-                        selectedProject === project.id
+                      className={`h-full cursor-pointer ${selectedProject === project.id
                           ? "ring-2 ring-blue-500"
                           : ""
-                      }`}
+                        }`}
                     >
-                      <div className="bg-gray-200 border-2 border-dashed rounded-t-lg w-full h-48" />
+                      <img
+                        src="/images/ertd.jpeg"
+                        alt="IA para monitoreo de salud materna"
+                        className="rounded-t-lg w-full h-48 object-cover"
+                      />
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <CardTitle className="text-lg">
@@ -276,7 +279,11 @@ const ProjectsPage = () => {
                 <CardContent>
                   {projects[selectedProject] && (
                     <div>
-                      <div className="bg-gray-200 border-2 border-dashed rounded-lg w-full h-48 mb-6" />
+                      <img
+                        src="/images/ertd.jpeg"
+                        alt="IA para monitoreo de salud materna"
+                        className="rounded-lg w-full h-48 object-cover mb-6"
+                      />
 
                       <h3 className="text-xl font-bold text-gray-900 mb-3">
                         {projects[selectedProject].title}
