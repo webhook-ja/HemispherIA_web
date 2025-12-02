@@ -25,10 +25,30 @@ const AboutPage = () => {
   };
 
   const teamMembers = [
-    { name: "María Rodríguez", role: "Directora Ejecutiva", experience: "15 años en IA" },
-    { name: "Carlos Méndez", role: "Director de Estrategia", experience: "12 años en Innovación" },
-    { name: "Ana López", role: "Directora de Tecnología", experience: "10 años en Desarrollo" },
-    { name: "Javier Torres", role: "Director de Alianzas", experience: "8 años en Relaciones" }
+    {
+      name: "Wolfgang Friedl",
+      role: "Director y Fundador",
+      location: "Ciudad de Panamá",
+      gradient: "from-blue-600 to-indigo-600"
+    },
+    {
+      name: "Erika Martínez Xiques",
+      role: "Secretaria Ejecutiva",
+      location: "Ciudad de Panamá",
+      gradient: "from-purple-600 to-pink-600"
+    },
+    {
+      name: "Alberto Chavarria",
+      role: "Asistente de Logística y Servicios Generales",
+      location: "Ciudad de Panamá",
+      gradient: "from-green-600 to-teal-600"
+    },
+    {
+      name: "Jorge Acuña R",
+      role: "Asociado de Alianzas / Consulting & AI Developer",
+      location: "Madrid",
+      gradient: "from-orange-600 to-red-600"
+    }
   ];
 
   const stats = [
@@ -235,7 +255,7 @@ const AboutPage = () => {
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
-                className="text-center"
+                className="relative group"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -243,22 +263,34 @@ const AboutPage = () => {
                 onHoverStart={() => setActiveCard(index)}
                 onHoverEnd={() => setActiveCard(-1)}
               >
-                <div className="relative mb-6">
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32 mx-auto flex items-center justify-center" />
-                  {activeCard === index && (
-                    <motion.div
-                      className="absolute -top-2 -right-2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    >
-                      <Award className="h-4 w-4 text-white" />
-                    </motion.div>
-                  )}
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-all duration-300 group-hover:shadow-2xl">
+                  {/* Avatar con gradiente */}
+                  <div className="relative pt-12 pb-8 px-6">
+                    <div className={`relative mx-auto w-24 h-24 rounded-full bg-gradient-to-br ${member.gradient} flex items-center justify-center shadow-lg`}>
+                      <Users className="h-12 w-12 text-white" />
+                      {activeCard === index && (
+                        <motion.div
+                          className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center shadow-md"
+                          initial={{ scale: 0, rotate: -180 }}
+                          animate={{ scale: 1, rotate: 0 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <Award className="h-4 w-4 text-yellow-900" />
+                        </motion.div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Información */}
+                  <div className="px-6 pb-8 text-center">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">{member.name}</h3>
+                    <p className="text-sm text-blue-600 font-medium mb-3 min-h-[2.5rem]">{member.role}</p>
+                    <div className="flex items-center justify-center text-gray-500 text-sm">
+                      <Globe className="h-4 w-4 mr-1" />
+                      <span>{member.location}</span>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-                <p className="text-blue-600 mb-2">{member.role}</p>
-                <p className="text-gray-600 text-sm">{member.experience}</p>
               </motion.div>
             ))}
           </div>
