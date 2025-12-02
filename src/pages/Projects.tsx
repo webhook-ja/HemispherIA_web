@@ -56,7 +56,7 @@ const ProjectsPage = () => {
         "Juventud por el Clima",
         "ONG Ambiental Brasil",
       ],
-      image: "/images/hemispher-ia-desarrollo-web-01.jpeg",
+      image: "/images/hemispher-ia-desarrollo-web-04.png",
       tags: ["Clima", "Juventud", "Influencers"],
     },
     {
