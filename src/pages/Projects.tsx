@@ -88,7 +88,7 @@ const ProjectsPage = () => {
         "Comunidades Ashuar",
         "ONG Desarrollo Sostenible",
       ],
-      image: "finance",
+      image: "/images/hemispher-ia-desarrollo-web-02.jpeg",
       tags: ["Finanzas", "Indígenas", "Educación"],
     },
   ];
