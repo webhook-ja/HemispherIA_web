@@ -85,10 +85,10 @@ const AboutPage = () => {
               <p className="text-xl text-blue-100 mb-8">
                 Conectamos conocimiento, talento y tecnología para un futuro sostenible en América Latina y el Caribe.
               </p>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-blue-900"
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-white text-blue-900 border-white hover:bg-blue-800 hover:text-white"
               >
                 Descargar Nuestra Visión
               </Button>

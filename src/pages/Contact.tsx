@@ -146,10 +146,10 @@ const ContactPage = () => {
                 Estamos listos para ayudarte a transformar desafíos en oportunidades de impacto sostenible.
               </p>
               <div className="flex space-x-4">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-blue-900"
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-white text-blue-900 border-white hover:bg-blue-800 hover:text-white"
                 >
                   Programar una reunión
                 </Button>

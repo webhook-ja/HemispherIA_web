@@ -139,7 +139,7 @@ const ProjectsPage = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-blue-900"
+                className="bg-white text-blue-900 border-white hover:bg-blue-800 hover:text-white"
               >
                 Descargar Informe Anual
               </Button>
