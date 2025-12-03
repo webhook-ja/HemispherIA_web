@@ -70,7 +70,7 @@ const ProjectsPage = () => {
       startDate: "Jun 2022",
       endDate: "Dic 2022",
       partners: ["ACNUR", "Gobierno de Panamá", "Organización Migrante"],
-      image: "migration",
+      image: "/images/hemispher-ia-desarrollo-web-03.jpeg",
       tags: ["Migración", "Política", "Darién"],
     },
     {
