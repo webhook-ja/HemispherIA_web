@@ -150,12 +150,11 @@ const InteractiveMap: React.FC = () => {
     const map = L.map(mapRef.current, {
       center: [-8, -60],
       zoom: 4,
-      minZoom: 3,
+      minZoom: 2,
       maxZoom: 18,
       zoomControl: true,
       scrollWheelZoom: true,
-      maxBounds: [[-60, -120], [35, -30]], // Limita el área visible a América Latina
-      maxBoundsViscosity: 0.8
+      worldCopyJump: true
     });
 
     mapInstanceRef.current = map;
