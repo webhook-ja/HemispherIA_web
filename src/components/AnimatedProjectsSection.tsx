@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AnimatedCard from "@/components/AnimatedCard";
 import ContextualSection from "@/components/ContextualSection";
@@ -61,13 +62,15 @@ const AnimatedProjectsSection = () => {
       </div>
 
       <div className="text-center">
-        <Button 
-          size="lg" 
-          variant="outline"
-          className="border-blue-800 text-blue-800 hover:bg-blue-50 px-8 py-3"
-        >
-          Ver todos los proyectos
-        </Button>
+        <Link to="/projects">
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-blue-800 text-blue-800 hover:bg-blue-50 px-8 py-3"
+          >
+            Ver todos los proyectos
+          </Button>
+        </Link>
       </div>
     </ContextualSection>
   );
