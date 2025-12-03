@@ -174,9 +174,33 @@ JWT_SECRET=hemispheria-secret-key-2024
 - Wolfgang, Erika, Alberto (Panamá) and Jorge (Madrid)
 
 **Project Images** (`src/pages/Projects.tsx`):
-- Images in `public/images/`
-- Use `.jpeg` extension (not `.png`) for consistency
-- Project image paths: `/images/hemispher-ia-desarrollo-web-XX.jpeg`
+- Images stored in `public/images/`
+- Use `.jpeg` extension for consistency
+- Current project images (lines 26-94):
+  - **Salud materna** (id: 0): `/images/ertd.jpeg` - Health worker with tablet in rural Colombia
+  - **Clima influencers** (id: 1): `/images/hemispher-ia-desarrollo-web-01.jpeg` - Climate activists
+  - **Migración Darién** (id: 2): `"migration"` - Placeholder (pending image)
+  - **Educación financiera** (id: 3): `"finance"` - Placeholder (pending image)
+
+**How to add/update project images:**
+1. Copy image to `public/images/` (local)
+2. Update `image` property in `projects` array in `src/pages/Projects.tsx`
+3. Commit: `git add . && git commit -m "feat: Add [project] image"`
+4. Push: `git push origin main`
+5. Deploy to server:
+   ```bash
+   # Copy file to server
+   scp -i "C:/Users/TRENDING PC/srv750816.key" \
+     "C:/Users/TRENDING PC/HemispherIA_web_git/src/pages/Projects.tsx" \
+     root@82.29.173.205:/etc/easypanel/projects/n8n/hemiph/code/src/pages/
+
+   # Build and deploy
+   ssh -i "C:/Users/TRENDING PC/srv750816.key" root@82.29.173.205 \
+     "cd /etc/easypanel/projects/n8n/hemiph/code && \
+      docker build -t easypanel/n8n/hemiph:latest . && \
+      docker service update --force --image easypanel/n8n/hemiph:latest n8n_hemiph"
+   ```
+6. Verify: `curl -s -o /dev/null -w "%{http_code}" https://n8n-hemiph.v2j42m.easypanel.host/`
 
 **Admin Panel**:
 - Access via `/admin` (requires login)
