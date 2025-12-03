@@ -38,7 +38,7 @@ const ProjectsPage = () => {
         "UNICEF",
         "Fundación Tecnología para Todos",
       ],
-      image: "health",
+      image: "/images/ertd.jpeg",
       tags: ["Salud", "IA", "Rural"],
     },
     {
