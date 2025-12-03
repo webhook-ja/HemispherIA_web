@@ -81,6 +81,61 @@ const proyectos = [
     impacto: "5,000 usuarios activos",
     estado: "Activo",
     tags: ["Finanzas", "Indígenas", "Educación"]
+  },
+  {
+    nombre: "Plataforma de Monitoreo de Salud Pública",
+    pais: "México",
+    ciudad: "Ciudad de México",
+    lat: 19.4326,
+    lng: -99.1332,
+    descripcion: "Sistema de IA para predecir brotes epidemiológicos en zonas urbanas.",
+    impacto: "Reducción 40% en tiempo de respuesta",
+    estado: "En progreso",
+    tags: ["Salud", "IA", "Epidemiología"]
+  },
+  {
+    nombre: "IA para Gestión de Recursos Hídricos",
+    pais: "Colombia",
+    ciudad: "Bogotá",
+    lat: 4.7110,
+    lng: -74.0721,
+    descripcion: "Modelo predictivo para sequías en la región andina.",
+    impacto: "85% precisión en predicciones",
+    estado: "Activo",
+    tags: ["Agua", "IA", "Sostenibilidad"]
+  },
+  {
+    nombre: "Asistente Virtual para Educación Rural",
+    pais: "Perú",
+    ciudad: "Región Amazónica",
+    lat: -9.1900,
+    lng: -75.0152,
+    descripcion: "Chatbot educativo en quechua y español para escuelas remotas.",
+    impacto: "3,200 estudiantes beneficiados",
+    estado: "Activo",
+    tags: ["Educación", "IA", "Multilingüe"]
+  },
+  {
+    nombre: "Análisis de Riesgo Climático en Zonas Costeras",
+    pais: "República Dominicana",
+    ciudad: "Santo Domingo",
+    lat: 18.4861,
+    lng: -69.9312,
+    descripcion: "Modelo de IA para prevenir inundaciones en comunidades costeras.",
+    impacto: "12 comunidades protegidas",
+    estado: "Completado",
+    tags: ["Clima", "IA", "Prevención"]
+  },
+  {
+    nombre: "Optimización de Redes Eléctricas con IA",
+    pais: "Chile",
+    ciudad: "Santiago",
+    lat: -33.4489,
+    lng: -70.6693,
+    descripcion: "Sistema de gestión inteligente para energías renovables.",
+    impacto: "30% mejora en eficiencia",
+    estado: "Activo",
+    tags: ["Energía", "IA", "Renovables"]
   }
 ];
 
