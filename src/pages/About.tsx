@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Users, 
-  Target, 
-  Globe, 
+import {
+  Users,
+  Target,
+  Globe,
   Award,
   ChevronRight,
   Play,
@@ -17,11 +17,19 @@ import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
 
 const AboutPage = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const toggleAnimation = () => {
-    setIsPlaying(!isPlaying);
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
 
   const teamMembers = [
@@ -100,52 +108,33 @@ const AboutPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="relative aspect-video bg-blue-800 rounded-2xl overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                      {isPlaying ? (
-                        <Pause className="h-8 w-8 text-blue-900" />
-                      ) : (
-                        <Play className="h-8 w-8 text-blue-900 ml-1" />
-                      )}
+              <div className="relative aspect-video bg-blue-900 rounded-2xl overflow-hidden shadow-2xl">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  onClick={toggleVideo}
+                  poster="/images/hemispher-ia-desarrollo-web-01.jpeg"
+                >
+                  <source src="/videos/institucional.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+
+                {/* Play/Pause Overlay - solo visible cuando el video está pausado */}
+                {!isPlaying && (
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center cursor-pointer" onClick={toggleVideo}>
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                      <Play className="h-10 w-10 text-blue-900 ml-1" />
                     </div>
-                    <p className="text-white font-medium">Video Institucional</p>
                   </div>
-                </div>
-                
-                {/* Animated elements */}
-                <motion.div
-                  className="absolute top-4 left-4 w-8 h-8 bg-yellow-400 rounded-full"
-                  animate={isPlaying ? { 
-                    y: [0, -15, 0],
-                    scale: [1, 1.2, 1]
-                  } : {}}
-                  transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                />
-                
-                <motion.div
-                  className="absolute bottom-4 right-4 w-6 h-6 bg-green-400 rounded-full"
-                  animate={isPlaying ? { 
-                    x: [0, 10, 0],
-                    rotate: [0, 180, 360]
-                  } : {}}
-                  transition={{ 
-                    duration: 3,
-                    repeat: Infinity
-                  }}
-                />
+                )}
               </div>
-              
-              <Button 
-                variant="ghost" 
+
+              {/* Control button in corner */}
+              <Button
+                variant="ghost"
                 size="icon"
-                className="absolute top-4 right-4 text-white hover:bg-white/20"
-                onClick={toggleAnimation}
+                className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full"
+                onClick={toggleVideo}
               >
                 {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
               </Button>
