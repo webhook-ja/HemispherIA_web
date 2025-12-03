@@ -26,24 +26,27 @@ const InteractiveMouseFollower = () => {
     const checkSection = (e: MouseEvent) => {
       const elements = document.elementsFromPoint(e.clientX, e.clientY);
 
+      // Buscar específicamente elementos con data-section
       for (const el of elements) {
-        const text = el.textContent?.toLowerCase() || '';
+        if (el instanceof HTMLElement) {
+          const section = el.getAttribute('data-section');
 
-        if (text.includes('visión y misión') || el.closest('[data-section="vision"]')) {
-          setCurrentSection('vision');
-          return;
-        }
-        if (text.includes('nuestra filosofía') || el.closest('[data-section="filosofia"]')) {
-          setCurrentSection('filosofia');
-          return;
-        }
-        if (text.includes('nuestro equipo') || el.closest('[data-section="equipo"]')) {
-          setCurrentSection('equipo');
-          return;
-        }
-        if (text.includes('proyectos piloto') || text.includes('proyectos y casos') || el.closest('[data-section="proyectos"]')) {
-          setCurrentSection('proyectos');
-          return;
+          if (section === 'vision') {
+            setCurrentSection('vision');
+            return;
+          }
+          if (section === 'filosofia') {
+            setCurrentSection('filosofia');
+            return;
+          }
+          if (section === 'equipo') {
+            setCurrentSection('equipo');
+            return;
+          }
+          if (section === 'proyectos') {
+            setCurrentSection('proyectos');
+            return;
+          }
         }
       }
 
@@ -79,7 +82,8 @@ const InteractiveMouseFollower = () => {
       return;
     }
 
-    const interval = setInterval(() => {
+    // Generar formas inmediatamente al entrar en una sección
+    const generateShapes = () => {
       const newShapes: Shape[] = [];
       const numShapes = currentSection === 'equipo' ? 3 : currentSection === 'proyectos' ? 4 : 2;
 
@@ -98,9 +102,18 @@ const InteractiveMouseFollower = () => {
       }
 
       setShapes(newShapes);
-    }, 1500);
+    };
 
-    return () => clearInterval(interval);
+    // Generar formas inmediatamente
+    generateShapes();
+
+    // Luego generar nuevas formas cada 1.5 segundos
+    const interval = setInterval(generateShapes, 1500);
+
+    return () => {
+      clearInterval(interval);
+      setShapes([]);
+    };
   }, [currentSection]);
 
   // Renderizar diferentes formas según la sección
