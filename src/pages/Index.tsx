@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import InteractiveMouseFollower from "@/components/InteractiveMouseFollower";
+import MouseFollower from "@/components/MouseFollower";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import InteractiveHero from "@/components/InteractiveHero";
 import AnimatedAboutSection from "@/components/AnimatedAboutSection";
@@ -13,7 +13,7 @@ import AnimatedFooter from "@/components/AnimatedFooter";
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
-      <InteractiveMouseFollower />
+      <MouseFollower />
       <AnimatedNavbar />
       <InteractiveHero />
       <AnimatedAboutSection />

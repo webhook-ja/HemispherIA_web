@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AnimatedCard from "@/components/AnimatedCard";
 import ContextualSection from "@/components/ContextualSection";
+import SectionAnimations from "@/components/SectionAnimations";
 
 const AnimatedProjectsSection = () => {
   const projects = [
@@ -43,15 +44,16 @@ const AnimatedProjectsSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         {projects.map((project, index) => (
           <AnimatedCard key={index} className="flex flex-col">
-            <div className="p-8 flex-grow" data-section="proyectos">
-              <div className="flex justify-between items-start mb-4">
+            <div className="p-8 flex-grow relative">
+              <SectionAnimations type="proyectos" />
+              <div className="flex justify-between items-start mb-4 relative z-10">
                 <h3 className="text-xl font-bold text-blue-800">{project.title}</h3>
                 <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
                   {project.location}
                 </span>
               </div>
-              <p className="text-gray-600 mb-6">{project.description}</p>
-              <div className="mt-auto">
+              <p className="text-gray-600 mb-6 relative z-10">{project.description}</p>
+              <div className="mt-auto relative z-10">
                 <p className="text-sm font-semibold text-blue-700 bg-blue-50 px-3 py-2 rounded inline-block">
                   {project.impact}
                 </p>
