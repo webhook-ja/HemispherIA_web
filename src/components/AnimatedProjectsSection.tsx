@@ -43,7 +43,7 @@ const AnimatedProjectsSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         {projects.map((project, index) => (
           <AnimatedCard key={index} className="flex flex-col">
-            <div className="p-8 flex-grow">
+            <div className="p-8 flex-grow" data-section="proyectos">
               <div className="flex justify-between items-start mb-4">
                 <h3 className="text-xl font-bold text-blue-800">{project.title}</h3>
                 <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">

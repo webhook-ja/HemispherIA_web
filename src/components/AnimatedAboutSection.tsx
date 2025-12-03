@@ -13,7 +13,7 @@ const AnimatedAboutSection = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <AnimatedCard>
-          <div className="p-8">
+          <div className="p-8" data-section="vision">
             <h3 className="text-xl font-bold text-blue-800 mb-4">Visión y Misión</h3>
             <p className="font-semibold text-gray-800 mb-3">
               Visión: Ser el principal nodo de conocimiento y colaboración en IA ética, comunicación y desarrollo sostenible de la región.
@@ -25,7 +25,7 @@ const AnimatedAboutSection = () => {
         </AnimatedCard>
 
         <AnimatedCard>
-          <div className="p-8">
+          <div className="p-8" data-section="filosofia">
             <h3 className="text-xl font-bold text-blue-800 mb-4">Nuestra Filosofía</h3>
             <p className="font-semibold text-gray-800 mb-3">
               En el corazón de Hemispher-IA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
@@ -37,7 +37,7 @@ const AnimatedAboutSection = () => {
         </AnimatedCard>
 
         <AnimatedCard>
-          <div className="p-8">
+          <div className="p-8" data-section="equipo">
             <h3 className="text-xl font-bold text-blue-800 mb-4">Nuestro Equipo</h3>
             <p className="font-semibold text-gray-800 mb-3">
               Liderado por expertos en comunicación, IA, desarrollo y alianzas internacionales, nuestro equipo integra perspectivas locales y globales.
