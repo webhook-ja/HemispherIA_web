@@ -184,7 +184,7 @@ const AboutPage = () => {
                   ref={videoRef}
                   className="w-full h-full object-cover cursor-pointer"
                   onClick={toggleVideo}
-                  poster="/images/hemispher-ia-desarrollo-web-01.jpeg"
+                  poster="/logo.jpeg"
                 >
                   <source src="/videos/institucional.mp4" type="video/mp4" />
                   Tu navegador no soporta el elemento de video.
