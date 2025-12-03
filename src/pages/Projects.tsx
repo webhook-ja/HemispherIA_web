@@ -209,8 +209,8 @@ const ProjectsPage = () => {
                         }`}
                     >
                       <img
-                        src="/images/ertd.jpeg"
-                        alt="IA para monitoreo de salud materna"
+                        src={project.image}
+                        alt={project.title}
                         className="rounded-t-lg w-full h-48 object-cover"
                       />
                       <CardHeader>
@@ -280,8 +280,8 @@ const ProjectsPage = () => {
                   {projects[selectedProject] && (
                     <div>
                       <img
-                        src="/images/ertd.jpeg"
-                        alt="IA para monitoreo de salud materna"
+                        src={projects[selectedProject].image}
+                        alt={projects[selectedProject].title}
                         className="rounded-lg w-full h-48 object-cover mb-6"
                       />
 
