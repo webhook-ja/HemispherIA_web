@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { motion } from 'framer-motion';
@@ -142,7 +142,6 @@ const proyectos = [
 const InteractiveMap: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
@@ -151,8 +150,12 @@ const InteractiveMap: React.FC = () => {
     const map = L.map(mapRef.current, {
       center: [-8, -60],
       zoom: 4,
+      minZoom: 3,
+      maxZoom: 18,
       zoomControl: true,
       scrollWheelZoom: true,
+      maxBounds: [[-60, -120], [35, -30]], // Limita el área visible a América Latina
+      maxBoundsViscosity: 0.8
     });
 
     mapInstanceRef.current = map;
@@ -258,18 +261,10 @@ const InteractiveMap: React.FC = () => {
           .addTo(map)
           .bindPopup(popupContent, {
             maxWidth: 320,
-            className: 'custom-popup'
+            className: 'custom-popup',
+            closeButton: true,
+            autoClose: true
           });
-
-        // Agregar eventos de hover
-        marker.on('mouseover', () => {
-          setHoveredProject(proyecto.nombre);
-          marker.openPopup();
-        });
-
-        marker.on('mouseout', () => {
-          setHoveredProject(null);
-        });
       }, index * 150); // Animación escalonada
     });
 
