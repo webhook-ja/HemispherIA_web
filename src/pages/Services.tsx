@@ -42,7 +42,7 @@ const ServicesPage = () => {
     },
     {
       id: 1,
-      title: "Gestión del Conocimiento",
+      title: "Intermediación de conocimiento",
       icon: <Database className="h-8 w-8" />,
       description:
         "Facilitamos la creación, transferencia y aplicación de conocimiento entre sectores, usando enfoques de knowledge brokering y plataformas colaborativas.",
@@ -112,7 +112,7 @@ const ServicesPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Soluciones Innovadoras con Impacto Medible
+              Soluciones Innovadoras con <br />Impacto Medible
             </motion.h1>
             <motion.p
               className="text-xl text-blue-100 mb-8"
