@@ -67,7 +67,7 @@ const InteractiveHero = () => {
           >
             <div className="relative">
               <img
-                src="https://via.placeholder.com/600x400?text=Jovenes+Tecnologia+Comunidades"
+                src="/images/hemispher-ia-desarrollo-web-05.png"
                 alt="Jóvenes, tecnología y comunidades"
                 className="rounded-xl w-full h-auto object-cover shadow-lg"
               />
