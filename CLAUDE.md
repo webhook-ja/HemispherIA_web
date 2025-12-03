@@ -185,7 +185,7 @@ JWT_SECRET=hemispheria-secret-key-2024
 **Institutional Video** (`src/pages/About.tsx`):
 - Video stored in `public/videos/institucional.mp4` (33 MB)
 - Displays on About page with custom video player controls
-- Uses poster image from `/images/hemispher-ia-desarrollo-web-01.jpeg`
+- Uses Hemispher-IA logo as poster/thumbnail (`/logo.jpeg`)
 - **Custom Controls** (appear on hover):
   - Progress bar with seek functionality
   - Play/Pause button
