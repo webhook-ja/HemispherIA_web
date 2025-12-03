@@ -182,6 +182,14 @@ JWT_SECRET=hemispheria-secret-key-2024
   - **Migración Darién** (id: 2): `/images/hemispher-ia-desarrollo-web-03.jpeg` - Field team with migration map
   - **Educación financiera** (id: 3): `/images/hemispher-ia-desarrollo-web-02.jpeg` - Indigenous financial education platform
 
+**Institutional Video** (`src/pages/About.tsx`):
+- Video stored in `public/videos/institucional.mp4` (33 MB)
+- Displays on About page with play/pause controls
+- Uses poster image from `/images/hemispher-ia-desarrollo-web-01.jpeg`
+- Click anywhere on video or use corner button to play/pause
+- Video ref: `videoRef` with `toggleVideo()` function
+- Important: Video files must be copied to server via SCP during deployment
+
 **How to add/update project images:**
 1. Copy image to `public/images/` (local)
 2. Update `image` property in `projects` array in `src/pages/Projects.tsx`
