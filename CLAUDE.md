@@ -184,10 +184,21 @@ JWT_SECRET=hemispheria-secret-key-2024
 
 **Institutional Video** (`src/pages/About.tsx`):
 - Video stored in `public/videos/institucional.mp4` (33 MB)
-- Displays on About page with play/pause controls
+- Displays on About page with custom video player controls
 - Uses poster image from `/images/hemispher-ia-desarrollo-web-01.jpeg`
-- Click anywhere on video or use corner button to play/pause
-- Video ref: `videoRef` with `toggleVideo()` function
+- **Custom Controls** (appear on hover):
+  - Progress bar with seek functionality
+  - Play/Pause button
+  - Volume control with mute/unmute toggle
+  - Volume slider (expands on hover over volume icon)
+  - Time display (current time / total duration)
+  - Fullscreen button
+  - Subtle gradient background on control panel
+- **Interactions**:
+  - Click video to play/pause
+  - Hover over player to show controls
+  - Controls fade out during playback (except when paused)
+- **Styling**: Custom range slider styles in `src/globals.css`
 - Important: Video files must be copied to server via SCP during deployment
 
 **How to add/update project images:**
