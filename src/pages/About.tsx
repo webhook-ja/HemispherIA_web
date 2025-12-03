@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,10 @@ import {
   Award,
   ChevronRight,
   Play,
-  Pause
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize
 } from "lucide-react";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
@@ -19,7 +22,31 @@ import AnimatedFooter from "@/components/AnimatedFooter";
 const AboutPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [showControls, setShowControls] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const updateTime = () => setCurrentTime(video.currentTime);
+    const updateDuration = () => setDuration(video.duration);
+    const handleEnded = () => setIsPlaying(false);
+
+    video.addEventListener('timeupdate', updateTime);
+    video.addEventListener('loadedmetadata', updateDuration);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('timeupdate', updateTime);
+      video.removeEventListener('loadedmetadata', updateDuration);
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
 
   const toggleVideo = () => {
     if (videoRef.current) {
@@ -30,6 +57,46 @@ const AboutPage = () => {
       }
       setIsPlaying(!isPlaying);
     }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    if (videoRef.current) {
+      videoRef.current.volume = newVolume;
+      setVolume(newVolume);
+      setIsMuted(newVolume === 0);
+    }
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    if (videoRef.current) {
+      videoRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const toggleFullscreen = () => {
+    if (videoRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        videoRef.current.requestFullscreen();
+      }
+    }
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
   const teamMembers = [
@@ -108,10 +175,14 @@ const AboutPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="relative aspect-video bg-blue-900 rounded-2xl overflow-hidden shadow-2xl">
+              <div
+                className="relative aspect-video bg-blue-900 rounded-2xl overflow-hidden shadow-2xl group"
+                onMouseEnter={() => setShowControls(true)}
+                onMouseLeave={() => setShowControls(false)}
+              >
                 <video
                   ref={videoRef}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover cursor-pointer"
                   onClick={toggleVideo}
                   poster="/images/hemispher-ia-desarrollo-web-01.jpeg"
                 >
@@ -127,17 +198,73 @@ const AboutPage = () => {
                     </div>
                   </div>
                 )}
-              </div>
 
-              {/* Control button in corner */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full"
-                onClick={toggleVideo}
-              >
-                {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
-              </Button>
+                {/* Custom Video Controls - aparecen al hacer hover */}
+                <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity duration-300 ${showControls || !isPlaying ? 'opacity-100' : 'opacity-0'}`}>
+                  {/* Progress Bar */}
+                  <div className="mb-3">
+                    <input
+                      type="range"
+                      min="0"
+                      max={duration || 0}
+                      value={currentTime}
+                      onChange={handleSeek}
+                      className="w-full h-1 bg-white/30 rounded-lg appearance-none cursor-pointer slider"
+                      style={{
+                        background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(currentTime / duration) * 100}%, rgba(255,255,255,0.3) ${(currentTime / duration) * 100}%, rgba(255,255,255,0.3) 100%)`
+                      }}
+                    />
+                  </div>
+
+                  {/* Control Buttons */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      {/* Play/Pause Button */}
+                      <button
+                        onClick={toggleVideo}
+                        className="text-white hover:text-blue-400 transition-colors"
+                      >
+                        {isPlaying ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+                      </button>
+
+                      {/* Volume Controls */}
+                      <div className="flex items-center space-x-2 group/volume">
+                        <button
+                          onClick={toggleMute}
+                          className="text-white hover:text-blue-400 transition-colors"
+                        >
+                          {isMuted || volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                        </button>
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value={isMuted ? 0 : volume}
+                          onChange={handleVolumeChange}
+                          className="w-0 group-hover/volume:w-20 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer transition-all duration-300"
+                          style={{
+                            background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${(isMuted ? 0 : volume) * 100}%, rgba(255,255,255,0.3) ${(isMuted ? 0 : volume) * 100}%, rgba(255,255,255,0.3) 100%)`
+                          }}
+                        />
+                      </div>
+
+                      {/* Time Display */}
+                      <span className="text-white text-sm font-medium">
+                        {formatTime(currentTime)} / {formatTime(duration)}
+                      </span>
+                    </div>
+
+                    {/* Fullscreen Button */}
+                    <button
+                      onClick={toggleFullscreen}
+                      className="text-white hover:text-blue-400 transition-colors"
+                    >
+                      <Maximize className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
