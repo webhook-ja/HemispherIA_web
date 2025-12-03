@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
+import InteractiveMap from "@/components/InteractiveMap";
 
 const ProjectsPage = () => {
   const [selectedProject, setSelectedProject] = useState(0);
@@ -413,15 +414,24 @@ const ProjectsPage = () => {
             ))}
           </div>
 
-          <div className="bg-gray-100 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
+            <motion.h3
+              className="text-3xl font-bold text-center text-gray-900 mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               Distribución Geográfica
-            </h3>
-            <div className="bg-white border-2 border-dashed border-gray-300 rounded-xl w-full h-96 flex items-center justify-center">
-              <p className="text-gray-500">
-                Mapa interactivo de proyectos en Latinoamérica
-              </p>
-            </div>
+            </motion.h3>
+            <motion.p
+              className="text-center text-gray-600 mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Explora nuestros proyectos activos en América Latina y el Caribe. Haz clic en los marcadores para ver más detalles.
+            </motion.p>
+            <InteractiveMap />
           </div>
         </div>
       </section>
