@@ -24,6 +24,12 @@ const AnimatedProjectsSection = () => {
       description: "Análisis de información y actores clave en la región del Darién para mejorar políticas migratorias.",
       location: "Panamá, Colombia",
       impact: "15 informes de política generados"
+    },
+    {
+      title: "Plataforma de educación financiera para comunidades indígenas",
+      description: "Desarrollo de una plataforma accesible para educación financiera adaptada a contextos indígenas.",
+      location: "Perú, Ecuador",
+      impact: "5,000 usuarios activos"
     }
   ];
 
@@ -33,7 +39,7 @@ const AnimatedProjectsSection = () => {
       title="PROYECTOS Y CASOS"
       subtitle="Resultados tangibles en toda la región"
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         {projects.map((project, index) => (
           <AnimatedCard key={index} className="flex flex-col">
             <div className="p-8 flex-grow">
