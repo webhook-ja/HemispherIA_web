@@ -184,16 +184,20 @@ const AboutPage = () => {
                   ref={videoRef}
                   className="w-full h-full object-cover cursor-pointer"
                   onClick={toggleVideo}
-                  poster="/logo.jpeg"
                 >
                   <source src="/videos/institucional.mp4" type="video/mp4" />
                   Tu navegador no soporta el elemento de video.
                 </video>
 
-                {/* Play/Pause Overlay - solo visible cuando el video está pausado */}
+                {/* Logo and Play Overlay - solo visible cuando el video está pausado */}
                 {!isPlaying && (
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center cursor-pointer" onClick={toggleVideo}>
-                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 to-indigo-900/90 flex flex-col items-center justify-center cursor-pointer" onClick={toggleVideo}>
+                    <img
+                      src="/logo.jpeg"
+                      alt="Hemispher-IA Logo"
+                      className="w-48 h-auto mb-8 rounded-lg shadow-2xl"
+                    />
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl">
                       <Play className="h-10 w-10 text-blue-900 ml-1" />
                     </div>
                   </div>
