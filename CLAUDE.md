@@ -179,7 +179,7 @@ JWT_SECRET=hemispheria-secret-key-2024
 - Current project images (lines 26-94):
   - **Salud materna** (id: 0): `/images/ertd.jpeg` - Health worker with tablet in rural Colombia
   - **Clima influencers** (id: 1): `/images/hemispher-ia-desarrollo-web-01.jpeg` - Climate activists
-  - **Migración Darién** (id: 2): `"migration"` - Placeholder (pending image)
+  - **Migración Darién** (id: 2): `/images/hemispher-ia-desarrollo-web-03.jpeg` - Field team with migration map
   - **Educación financiera** (id: 3): `"finance"` - Placeholder (pending image)
 
 **How to add/update project images:**
