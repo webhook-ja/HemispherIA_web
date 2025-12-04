@@ -44,10 +44,10 @@ const AnimatedFooter = () => {
           >
             <h4 className="font-semibold mb-4">Recursos</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Publicaciones</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Eventos</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Alianzas</a></li>
+              <li><Link to="/publicaciones" className="hover:text-white transition-colors">Publicaciones</Link></li>
+              <li><Link to="/eventos" className="hover:text-white transition-colors">Eventos</Link></li>
+              <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/alianzas" className="hover:text-white transition-colors">Alianzas</Link></li>
             </ul>
           </motion.div>
           
@@ -59,7 +59,7 @@ const AnimatedFooter = () => {
           >
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Política de Privacidad</a></li>
+              <li><Link to="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link></li>
               <li><a href="#" className="hover:text-white transition-colors">Términos de Uso</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Cookies</a></li>
             </ul>
