@@ -15,7 +15,7 @@ const ServicesSection = () => {
       ]
     },
     {
-      title: "Gestión del Conocimiento",
+      title: "Intermediación del Conocimiento",
       description: "Facilitamos la creación, transferencia y aplicación de conocimiento entre sectores, usando enfoques de knowledge brokering y plataformas colaborativas.",
       items: [
         "Mapas de actores",
