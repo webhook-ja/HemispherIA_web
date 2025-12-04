@@ -13,6 +13,10 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import PublicInfo from "./pages/PublicInfo";
+import Publicaciones from "./pages/Publicaciones";
+import Eventos from "./pages/Eventos";
+import Blog from "./pages/Blog";
+import Alianzas from "./pages/Alianzas";
 import { useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -58,6 +62,10 @@ const App = () => (
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/public-info" element={<PublicInfo />} />
+            <Route path="/publicaciones" element={<Publicaciones />} />
+            <Route path="/eventos" element={<Eventos />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/alianzas" element={<Alianzas />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin/*" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

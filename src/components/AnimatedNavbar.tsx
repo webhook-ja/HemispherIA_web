@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Menu, X, Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import { Menu, X, Globe, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const AnimatedNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState("ES");
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -20,7 +21,16 @@ const AnimatedNavbar = () => {
     { name: "QUIÉNES SOMOS", href: "/about" },
     { name: "QUÉ HACEMOS", href: "/services" },
     { name: "PROYECTOS", href: "/projects" },
-    { name: "INFORMACIÓN PÚBLICA", href: "/public-info" },
+    {
+      name: "INFORMACIÓN PÚBLICA",
+      href: "/public-info",
+      subItems: [
+        { name: "Publicaciones", href: "/publicaciones" },
+        { name: "Eventos", href: "/eventos" },
+        { name: "Blog", href: "/blog" },
+        { name: "Alianzas", href: "/alianzas" },
+      ]
+    },
     { name: "CONTACTO", href: "/contact" },
   ];
 
@@ -48,25 +58,67 @@ const AnimatedNavbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:gap-6">
             {navItems.map((item, index) => (
-              <motion.a
+              <div
                 key={item.name}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(item.href);
-                }}
-                className="text-gray-700 hover:text-blue-800 font-medium transition-colors relative py-2 cursor-pointer"
-                whileHover={{ y: -2 }}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                className="relative"
+                onMouseEnter={() => item.subItems && setActiveDropdown(item.name)}
+                onMouseLeave={() => item.subItems && setActiveDropdown(null)}
               >
-                {item.name}
-                <motion.span
-                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-800"
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.a>
+                <motion.a
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!item.subItems) {
+                      navigate(item.href);
+                    }
+                  }}
+                  className="text-gray-700 hover:text-blue-800 font-medium transition-colors relative py-2 cursor-pointer flex items-center gap-1"
+                  whileHover={{ y: -2 }}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  {item.name}
+                  {item.subItems && (
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                  )}
+                  <motion.span
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-800"
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.a>
+
+                {/* Dropdown Menu */}
+                <AnimatePresence>
+                  {item.subItems && activeDropdown === item.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden"
+                    >
+                      {item.subItems.map((subItem, subIndex) => (
+                        <motion.a
+                          key={subItem.name}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(subItem.href);
+                            setActiveDropdown(null);
+                          }}
+                          className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-800 transition-colors cursor-pointer border-b border-gray-100 last:border-b-0"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: subIndex * 0.05 }}
+                          whileHover={{ x: 5 }}
+                        >
+                          {subItem.name}
+                        </motion.a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             ))}
 
             {/* Language Selector */}
@@ -109,19 +161,56 @@ const AnimatedNavbar = () => {
         >
           <div className="space-y-1 bg-white px-2 pb-3 pt-2 shadow-lg sm:px-3">
             {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(item.href);
-                  setIsMenuOpen(false);
-                }}
-                className="block w-full rounded-md px-3 py-2 text-center text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-800 cursor-pointer"
-                whileHover={{ x: 5 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                {item.name}
-              </motion.a>
+              <div key={item.name}>
+                <motion.div
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.subItems) {
+                      setActiveDropdown(activeDropdown === item.name ? null : item.name);
+                    } else {
+                      navigate(item.href);
+                      setIsMenuOpen(false);
+                    }
+                  }}
+                  className="flex items-center justify-between w-full rounded-md px-3 py-2 text-center text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-800 cursor-pointer"
+                  whileHover={{ x: 5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span>{item.name}</span>
+                  {item.subItems && (
+                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                  )}
+                </motion.div>
+
+                {/* Mobile Submenu */}
+                <AnimatePresence>
+                  {item.subItems && activeDropdown === item.name && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="ml-4 mt-1 space-y-1"
+                    >
+                      {item.subItems.map((subItem) => (
+                        <motion.a
+                          key={subItem.name}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate(subItem.href);
+                            setIsMenuOpen(false);
+                            setActiveDropdown(null);
+                          }}
+                          className="block w-full rounded-md px-3 py-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-800 cursor-pointer"
+                          whileHover={{ x: 5 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {subItem.name}
+                        </motion.a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             ))}
             <div className="w-full border-t border-gray-200 pt-3">
               <Button
