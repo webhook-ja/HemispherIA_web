@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
+import { Link } from "react-router-dom";
 
 const BlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
@@ -38,6 +39,7 @@ const BlogPage = () => {
     {
       id: 1,
       title: "El futuro de la IA en políticas públicas latinoamericanas",
+      slug: "el-futuro-ia-politicas-publicas",
       excerpt: "Exploramos cómo los gobiernos de la región están adoptando inteligencia artificial para mejorar servicios públicos, desde salud hasta educación.",
       category: "Inteligencia Artificial",
       author: "Wolfgang Friedl",
@@ -53,6 +55,7 @@ const BlogPage = () => {
     {
       id: 2,
       title: "Knowledge Brokering: El arte de conectar conocimiento disperso",
+      slug: "knowledge-brokering-conectar-conocimiento",
       excerpt: "¿Cómo transformar datos aislados en conocimiento útil? Descubre metodologías prácticas de intermediación que están revolucionando la innovación social.",
       category: "Innovación Social",
       author: "Erika Martínez",
@@ -68,6 +71,7 @@ const BlogPage = () => {
     {
       id: 3,
       title: "5 claves para campañas de influencers con impacto social real",
+      slug: "claves-campanas-influencers-impacto-social",
       excerpt: "El marketing de influencia va más allá de likes y views. Te compartimos lecciones de campañas exitosas en salud, clima y derechos humanos.",
       category: "Comunicación Digital",
       author: "Jorge Acuña",
@@ -83,6 +87,7 @@ const BlogPage = () => {
     {
       id: 4,
       title: "Caso de estudio: IA para salud materna en Colombia",
+      slug: "caso-estudio-ia-salud-materna-colombia",
       excerpt: "Cómo un piloto de inteligencia artificial está mejorando el acceso a servicios de salud en comunidades rurales del Pacífico colombiano.",
       category: "Casos de Éxito",
       author: "Equipo Hemispher-IA",
@@ -98,6 +103,7 @@ const BlogPage = () => {
     {
       id: 5,
       title: "La ética de la IA: Más allá del discurso corporativo",
+      slug: "etica-ia-discurso-corporativo",
       excerpt: "Reflexión crítica sobre gobernanza de IA en América Latina. ¿Estamos realmente priorizando los derechos humanos o solo seguimos tendencias globales?",
       category: "Opinión",
       author: "Wolfgang Friedl",
@@ -112,6 +118,7 @@ const BlogPage = () => {
     {
       id: 6,
       title: "Comunicación climática: Lecciones de activistas jóvenes de LAC",
+      slug: "comunicacion-climatica-activistas-jovenes",
       excerpt: "Jóvenes de Brasil, Argentina y Chile están liderando narrativas innovadoras sobre cambio climático. Esto es lo que podemos aprender de ellos.",
       category: "Comunicación Digital",
       author: "Jorge Acuña",
@@ -240,6 +247,7 @@ const BlogPage = () => {
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
                 >
+                  <Link to={`/blog/${post.slug || "el-futuro-ia-politicas-publicas"}`} className="block">
                   <Card className="h-full overflow-hidden hover:shadow-2xl transition-shadow group cursor-pointer">
                     <div className="relative h-64 overflow-hidden">
                       <img
@@ -303,6 +311,7 @@ const BlogPage = () => {
                       </Button>
                     </CardContent>
                   </Card>
+                </Link>
                 </motion.div>
               ))}
             </div>
@@ -329,6 +338,7 @@ const BlogPage = () => {
                 transition={{ delay: index * 0.05 }}
                 whileHover={{ y: -5 }}
               >
+                <Link to={`/blog/${post.slug || "el-futuro-ia-politicas-publicas"}`} className="block">
                 <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer">
                   {post.image && (
                     <div className="relative h-48 overflow-hidden">
@@ -389,6 +399,7 @@ const BlogPage = () => {
                     </div>
                   </CardContent>
                 </Card>
+                </Link>
               </motion.div>
             ))}
           </div>

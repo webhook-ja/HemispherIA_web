@@ -78,14 +78,6 @@ const ContactPage = () => {
     }
   };
 
-  const heroMenuItems = [
-    { label: "INICIO", href: "/" },
-    { label: "QUIÉNES SOMOS", href: "/about" },
-    { label: "QUÉ HACEMOS", href: "/services" },
-    { label: "PROYECTOS", href: "/projects" },
-    { label: "CONTACTO", href: "/contact" }
-  ];
-
   const contactInfo = [
     {
       icon: <MapPin className="h-6 w-6" />,
@@ -119,20 +111,6 @@ const ContactPage = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center lg:justify-end mb-12">
-            <div className="flex w-full max-w-2xl flex-wrap items-center justify-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
-              {heroMenuItems.map(item => (
-                <Button
-                  key={item.href}
-                  variant="ghost"
-                  className="h-auto rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-white/20 sm:text-sm"
-                  onClick={() => navigate(item.href)}
-                >
-                  {item.label}
-                </Button>
-              ))}
-            </div>
-          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

@@ -16,6 +16,7 @@ import PublicInfo from "./pages/PublicInfo";
 import Publicaciones from "./pages/Publicaciones";
 import Eventos from "./pages/Eventos";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Alianzas from "./pages/Alianzas";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -68,6 +69,7 @@ const App = () => (
             <Route path="/publicaciones" element={<Publicaciones />} />
             <Route path="/eventos" element={<Eventos />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/alianzas" element={<Alianzas />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
             <Route path="/terminos" element={<TermsOfService />} />
