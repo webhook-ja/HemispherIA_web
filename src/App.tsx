@@ -18,6 +18,8 @@ import Eventos from "./pages/Eventos";
 import Blog from "./pages/Blog";
 import Alianzas from "./pages/Alianzas";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import CookiesPolicy from "./pages/CookiesPolicy";
 import { useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -68,6 +70,8 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/alianzas" element={<Alianzas />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
+            <Route path="/terminos" element={<TermsOfService />} />
+            <Route path="/cookies" element={<CookiesPolicy />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin/*" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

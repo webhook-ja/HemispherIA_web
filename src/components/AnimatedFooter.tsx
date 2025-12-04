@@ -60,8 +60,8 @@ const AnimatedFooter = () => {
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-gray-400">
               <li><Link to="/privacidad" className="hover:text-white transition-colors">Política de Privacidad</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors">Términos de Uso</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Cookies</a></li>
+              <li><Link to="/terminos" className="hover:text-white transition-colors">Términos de Uso</Link></li>
+              <li><Link to="/cookies" className="hover:text-white transition-colors">Cookies</Link></li>
             </ul>
           </motion.div>
         </div>
