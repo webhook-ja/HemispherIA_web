@@ -14,7 +14,8 @@ import {
   Pause,
   Volume2,
   VolumeX,
-  Maximize
+  Maximize,
+  Mail
 } from "lucide-react";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
@@ -104,6 +105,7 @@ const AboutPage = () => {
       name: "Wolfgang Friedl",
       role: "Director y Fundador",
       location: "Ciudad de Panamá",
+      email: "wolfgang.friedl@hemispher-ia.org",
       photo: "/team/wolfgang-friedl.jpg",
       photoPosition: "center center",
       gradient: "from-blue-600 to-indigo-600"
@@ -112,6 +114,7 @@ const AboutPage = () => {
       name: "Erika Martínez Xiques",
       role: "Secretaria Ejecutiva",
       location: "Ciudad de Panamá",
+      email: "erika.martinez@hemispher-ia.org",
       photo: "/team/erika-martinez.jpg",
       photoPosition: "center center",
       gradient: "from-purple-600 to-pink-600"
@@ -120,14 +123,16 @@ const AboutPage = () => {
       name: "Alberto Chavarria",
       role: "Asistente de Logística y Servicios Generales",
       location: "Ciudad de Panamá",
-      photo: "/team/alberto-chavarria.jpg",
-      photoPosition: "center 65%",
+      email: "alberto.chavarria@hemispher-ia.org",
+      photo: "/images/hemispher-ia-desarrollo-web-20.jpeg",
+      photoPosition: "center center",
       gradient: "from-green-600 to-teal-600"
     },
     {
       name: "Jorge Acuña R",
       role: "Asociado de Alianzas / Consulting & AI Developer",
       location: "Madrid",
+      email: "jorge.acuna@hemispher-ia.org",
       photo: "/team/jorge-acuna.jpg",
       photoPosition: "center center",
       gradient: "from-orange-600 to-red-600"
@@ -419,9 +424,18 @@ const AboutPage = () => {
                   <div className="px-6 pb-8 text-center">
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{member.name}</h3>
                     <p className="text-sm text-blue-600 font-medium mb-3 min-h-[2.5rem]">{member.role}</p>
-                    <div className="flex items-center justify-center text-gray-500 text-sm">
-                      <Globe className="h-4 w-4 mr-1" />
-                      <span>{member.location}</span>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-center text-gray-500 text-sm">
+                        <Globe className="h-4 w-4 mr-1" />
+                        <span>{member.location}</span>
+                      </div>
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="flex items-center justify-center text-blue-600 text-sm hover:text-blue-800 transition-colors"
+                      >
+                        <Mail className="h-4 w-4 mr-1" />
+                        <span>{member.email}</span>
+                      </a>
                     </div>
                   </div>
                 </div>
