@@ -305,9 +305,22 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestra Filosofía</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
               En el corazón de Hemispher-IA está el Knowledge Brokering: el arte de conectar conocimiento disperso, comunidades diversas y oportunidades tecnológicas para generar impacto.
             </p>
+            {/* Imagen de Nuestra Filosofía */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <img
+                src="/images/Nuestra Filosofía.jpeg"
+                alt="Nuestra Filosofía"
+                className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
+              />
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -315,7 +328,15 @@ const AboutPage = () => {
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="h-full border-l-4 border-l-blue-800">
+              <Card className="h-full border-l-4 border-l-blue-800 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src="/images/Visión y Misión.jpeg"
+                    alt="Visión"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+                </div>
                 <CardHeader>
                   <CardTitle className="flex items-center text-blue-800">
                     <Target className="mr-2 h-5 w-5" />
@@ -345,7 +366,15 @@ const AboutPage = () => {
               whileHover={{ y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              <Card className="h-full border-l-4 border-l-green-600">
+              <Card className="h-full border-l-4 border-l-green-600 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src="/images/Visión y Misión.jpeg"
+                    alt="Misión"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-green-900/80 to-transparent"></div>
+                </div>
                 <CardHeader>
                   <CardTitle className="flex items-center text-green-600">
                     <Globe className="mr-2 h-5 w-5" />
@@ -379,9 +408,22 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Nuestro Equipo Directivo</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
               Liderado por expertos en comunicación, IA, desarrollo y alianzas internacionales, nuestro equipo integra perspectivas locales y globales.
             </p>
+            {/* Imagen de Nuestro Equipo */}
+            <motion.div
+              className="mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <img
+                src="/images/Nuestro Equipo.jpeg"
+                alt="Nuestro Equipo"
+                className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
+              />
+            </motion.div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -477,6 +519,46 @@ const AboutPage = () => {
                 <p className="text-blue-100">{value.description}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic Partners Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Socios Estratégicos</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+              Colaboramos con universidades, startups, organismos internacionales y redes de innovación que comparten nuestra visión de una región más equitativa y tecnológicamente preparada.
+            </p>
+          </div>
+
+          {/* Imagen principal de Socios Estratégicos */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <img
+              src="/images/Socios Estratégicos.jpeg"
+              alt="Socios Estratégicos"
+              className="w-full max-w-5xl mx-auto rounded-2xl shadow-2xl"
+            />
+          </motion.div>
+
+          {/* Descripción adicional */}
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.div
+              className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8 border border-blue-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <p className="text-lg text-gray-700 leading-relaxed">
+                <span className="font-semibold text-blue-900">Alianzas sólidas</span> que amplían nuestro alcance y potencian el impacto de nuestras soluciones. Trabajamos codo a codo con instituciones que comparten nuestro compromiso con la <span className="font-semibold text-green-700">innovación responsable</span> y el <span className="font-semibold text-indigo-700">desarrollo sostenible</span> de América Latina y el Caribe.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
