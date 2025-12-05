@@ -14,6 +14,14 @@ const AnimatedAboutSection = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <AnimatedCard>
+          <div className="relative overflow-hidden">
+            <img
+              src="/images/Visión y Misión.jpeg"
+              alt="Visión y Misión"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent"></div>
+          </div>
           <div className="p-8 relative">
             <SectionAnimations type="vision" />
             <h3 className="text-xl font-bold text-blue-800 mb-4 relative z-10">Visión y Misión</h3>
@@ -27,6 +35,14 @@ const AnimatedAboutSection = () => {
         </AnimatedCard>
 
         <AnimatedCard>
+          <div className="relative overflow-hidden">
+            <img
+              src="/images/Nuestra Filosofía.jpeg"
+              alt="Nuestra Filosofía"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/60 to-transparent"></div>
+          </div>
           <div className="p-8 relative">
             <SectionAnimations type="filosofia" />
             <h3 className="text-xl font-bold text-blue-800 mb-4 relative z-10">Nuestra Filosofía</h3>
@@ -40,6 +56,14 @@ const AnimatedAboutSection = () => {
         </AnimatedCard>
 
         <AnimatedCard>
+          <div className="relative overflow-hidden">
+            <img
+              src="/images/Nuestro Equipo.jpeg"
+              alt="Nuestro Equipo"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent"></div>
+          </div>
           <div className="p-8 relative">
             <SectionAnimations type="equipo" />
             <h3 className="text-xl font-bold text-blue-800 mb-4 relative z-10">Nuestro Equipo</h3>
@@ -53,6 +77,14 @@ const AnimatedAboutSection = () => {
         </AnimatedCard>
 
         <AnimatedCard>
+          <div className="relative overflow-hidden">
+            <img
+              src="/images/Socios Estratégicos.jpeg"
+              alt="Socios Estratégicos"
+              className="w-full h-48 object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 to-transparent"></div>
+          </div>
           <div className="p-8">
             <h3 className="text-xl font-bold text-blue-800 mb-4">Socios Estratégicos</h3>
             <p className="font-semibold text-gray-800 mb-3">
