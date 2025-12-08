@@ -42,7 +42,7 @@ const ServicesPage = () => {
     },
     {
       id: 1,
-      title: "Intermediación de conocimiento",
+      title: "Intermediación del conocimiento",
       icon: <Database className="h-8 w-8" />,
       description:
         "Facilitamos la creación, transferencia y aplicación de conocimiento entre sectores, usando enfoques de knowledge brokering y plataformas colaborativas.",
