@@ -26,6 +26,7 @@ const ServicesPage = () => {
       id: 0,
       title: "Estrategia y Consultoría en IA Social",
       icon: <Brain className="h-8 w-8" />,
+      image: "/images/estrategia y consultoria de ia.jpeg",
       description:
         "Diseñamos estrategias que usan inteligencia artificial de manera ética y responsable para mejorar políticas públicas, programas sociales y comunicación con comunidades.",
       color: "from-blue-500 to-blue-700",
@@ -44,6 +45,7 @@ const ServicesPage = () => {
       id: 1,
       title: "Intermediación del conocimiento",
       icon: <Database className="h-8 w-8" />,
+      image: "/images/Intermediación del Conocimiento.jpeg",
       description:
         "Facilitamos la creación, transferencia y aplicación de conocimiento entre sectores, usando enfoques de knowledge brokering y plataformas colaborativas.",
       color: "from-green-500 to-green-700",
@@ -62,6 +64,7 @@ const ServicesPage = () => {
       id: 2,
       title: "Marketing de Influencia y Comunicación de Impacto",
       icon: <Users className="h-8 w-8" />,
+      image: "/images/Marketing de Influencia y Comunicación de Impacto.jpeg",
       description:
         "Combinamos la analítica de datos y el poder de las comunidades digitales para promover comportamientos sostenibles, salud, equidad e inclusión.",
       color: "from-purple-500 to-purple-700",
@@ -79,6 +82,7 @@ const ServicesPage = () => {
       id: 3,
       title: "Proyectos Piloto",
       icon: <Rocket className="h-8 w-8" />,
+      image: "/images/Proyectos Piloto.jpeg",
       description:
         "Ejecutamos pilotos regionales en colaboración con gobiernos, ONGs y el sector privado.",
       color: "from-orange-500 to-orange-700",
@@ -165,10 +169,18 @@ const ServicesPage = () => {
                 onClick={() => setActiveService(service.id)}
               >
                 <Card
-                  className={`h-full cursor-pointer border-l-4 border-l-blue-800 ${
+                  className={`h-full cursor-pointer border-l-4 border-l-blue-800 overflow-hidden ${
                     activeService === service.id ? "ring-2 ring-blue-500" : ""
                   }`}
                 >
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-20`}></div>
+                  </div>
                   <CardHeader>
                     <div
                       className={`w-16 h-16 rounded-lg bg-gradient-to-r ${service.color} flex items-center justify-center text-white mb-4`}
