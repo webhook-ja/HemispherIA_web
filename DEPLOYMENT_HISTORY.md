@@ -4,7 +4,7 @@ Este documento registra todos los despliegues y cambios importantes realizados e
 
 ---
 
-## 2025-12-08 20:15 UTC - Galería de Imágenes + Mapa Interactivo ✅
+## 2025-12-08 20:20 UTC - Mapa Interactivo de Google Maps ✅
 
 **Deployado por:** Claude Sonnet 4.5
 **Estado:** ✅ EXITOSO
@@ -18,36 +18,29 @@ Este documento registra todos los despliegues y cambios importantes realizados e
 - Falta de información visual de ubicación física
 
 **Archivos modificados:**
-- `src/pages/Contact.tsx` - Mapa + galería de imágenes
+- `src/pages/Contact.tsx` - Mapa interactivo de Google
 
 **Solución:**
 - Google Maps embed con ubicación exacta: Calle Luis Bonilla 104, Ciudad del Saber, Panamá
 - Coordenadas: 8.99913°, -79.58413°
 - Mapa responsive con bordes redondeados y sombra
-
-#### 2. Galería de Imágenes del Campus
-**Características:**
-- 2 imágenes: Mapa de Ciudad del Saber + Vista aérea
-- Diseño discreto y no intrusivo (h-48 = 192px)
-- Animaciones sutiles con hover effect (y: -5px)
-- Captions con gradiente oscuro para legibilidad
-- Grid responsive (1 columna móvil, 2 columnas desktop)
-- Imágenes: `oficinas1.jpeg` y `oficinas2.jpeg`
+- Atributos de accesibilidad (title, allowFullScreen, loading lazy)
 
 ### Commits de Git
 ```bash
 1. feat: Agregar mapa interactivo de Google Maps (442b488)
-2. feat: Agregar galería de imágenes de Ciudad del Saber (6d969ed)
+2. feat: Agregar galería de imágenes (6d969ed) - REVERTIDO
+3. fix: Eliminar galería de imágenes (5252b39) - FINAL
 ```
+
+**Nota:** Galería de imágenes agregada y posteriormente eliminada por feedback del cliente
 
 ### Verificación Post-Deploy
 - ✅ Site HTTP 200 OK
 - ✅ Página /contact accesible
 - ✅ Mapa de Google carga correctamente
-- ✅ Galería de imágenes visible y responsive
-- ✅ Animaciones funcionando correctamente
 - ✅ Service Docker actualizado sin errores
-- ✅ Build completado en 16.6s
+- ✅ Build completado en 15.5s
 
 ### Proceso de Deploy
 1. Commit y push a GitHub (main branch)
