@@ -356,7 +356,7 @@ const AboutPage = () => {
               <Card className="h-full border-l-4 border-l-green-600 overflow-hidden">
                 <div className="relative h-48 overflow-hidden">
                   <img
-                    src="/images/Visión y Misión.jpeg"
+                    src="/images/Nuestra Filosofía.jpeg"
                     alt="Misión"
                     className="w-full h-full object-cover"
                   />
