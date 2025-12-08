@@ -147,9 +147,14 @@ const ContactPage = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="bg-gray-200 border-2 border-dashed rounded-2xl w-full h-96 flex items-center justify-center">
-                <p className="text-gray-500">Mapa interactivo de nuestra oficina</p>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.631788888671!2d-79.58638!3d8.99913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8faca8f5d4e3c571%3A0x4b8a9c5e6d7f8a9b!2sCalle%20Luis%20Bonilla%20104%2C%20Ciudad%20del%20Saber%2C%20Panam%C3%A1!5e0!3m2!1ses!2spa!4v1733445000000!5m2!1ses!2spa"
+                className="rounded-2xl w-full h-96 border-0 shadow-lg"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación de Hemispher-IA - Ciudad del Saber, Panamá"
+              />
               
               {/* Floating elements */}
               <motion.div
