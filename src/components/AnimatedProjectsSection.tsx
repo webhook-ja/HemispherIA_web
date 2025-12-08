@@ -13,25 +13,29 @@ const AnimatedProjectsSection = () => {
       title: "IA para monitoreo de salud materna",
       description: "Proyecto piloto en comunidades rurales de Colombia para mejorar el acceso a servicios de salud materna mediante IA predictiva.",
       location: "Colombia",
-      impact: "35% mejora en indicadores de salud"
+      impact: "35% mejora en indicadores de salud",
+      image: "/images/ertd.jpeg"
     },
     {
       title: "Redes de influencers por la acción climática juvenil",
       description: "Colaboración con jóvenes activistas digitales en Brasil y Argentina para promover acciones climáticas sostenibles.",
       location: "Brasil, Argentina",
-      impact: "2M de personas alcanzadas"
+      impact: "2M de personas alcanzadas",
+      image: "/images/hemispher-ia-desarrollo-web-01.jpeg"
     },
     {
       title: "Mapeo de conocimiento en políticas migratorias del Darién",
       description: "Análisis de información y actores clave en la región del Darién para mejorar políticas migratorias.",
       location: "Panamá, Colombia",
-      impact: "15 informes de política generados"
+      impact: "15 informes de política generados",
+      image: "/images/hemispher-ia-desarrollo-web-03.jpeg"
     },
     {
       title: "Plataforma de educación financiera para comunidades indígenas",
       description: "Desarrollo de una plataforma accesible para educación financiera adaptada a contextos indígenas.",
       location: "Perú, Ecuador",
-      impact: "5,000 usuarios activos"
+      impact: "5,000 usuarios activos",
+      image: "/images/hemispher-ia-desarrollo-web-02.jpeg"
     }
   ];
 
@@ -43,7 +47,15 @@ const AnimatedProjectsSection = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         {projects.map((project, index) => (
-          <AnimatedCard key={index} className="flex flex-col">
+          <AnimatedCard key={index} className="flex flex-col overflow-hidden">
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent"></div>
+            </div>
             <div className="p-8 flex-grow relative">
               <SectionAnimations type="proyectos" />
               <div className="flex justify-between items-start mb-4 relative z-10">
