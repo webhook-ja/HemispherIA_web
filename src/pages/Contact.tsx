@@ -173,16 +173,53 @@ const ContactPage = () => {
               
               <motion.div
                 className="absolute -bottom-4 -right-4 w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center shadow-lg"
-                animate={{ 
+                animate={{
                   rotate: [0, 10, 0, -10, 0],
                 }}
-                transition={{ 
+                transition={{
                   duration: 4,
                   repeat: Infinity
                 }}
               >
                 <Phone className="h-6 w-6 text-white" />
               </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Gallery Section */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <motion.div
+              className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              whileHover={{ y: -5 }}
+            >
+              <img
+                src="/images/oficinas1.jpeg"
+                alt="Mapa de Ciudad del Saber"
+                className="w-full h-48 object-cover"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <p className="text-white text-sm font-medium">Mapa de Ciudad del Saber</p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              whileHover={{ y: -5 }}
+            >
+              <img
+                src="/images/oficinas2.jpeg"
+                alt="Vista aérea de Ciudad del Saber"
+                className="w-full h-48 object-cover"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                <p className="text-white text-sm font-medium">Vista aérea de nuestro campus</p>
+              </div>
             </motion.div>
           </div>
         </div>
