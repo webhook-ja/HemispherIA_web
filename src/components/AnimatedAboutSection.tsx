@@ -16,8 +16,8 @@ const AnimatedAboutSection = () => {
         <AnimatedCard>
           <div className="relative overflow-hidden">
             <img
-              src="/images/Socios Estratégicos.jpeg"
-              alt="Socios Estratégicos"
+              src="/images/Nuestro Equipo.jpeg"
+              alt="Nuestro Equipo"
               className="w-full h-48 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent"></div>
@@ -58,8 +58,8 @@ const AnimatedAboutSection = () => {
         <AnimatedCard>
           <div className="relative overflow-hidden">
             <img
-              src="/images/Nuestro Equipo.jpeg"
-              alt="Nuestro Equipo"
+              src="/images/Socios Estratégicos.jpeg"
+              alt="Socios Estratégicos"
               className="w-full h-48 object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent"></div>
