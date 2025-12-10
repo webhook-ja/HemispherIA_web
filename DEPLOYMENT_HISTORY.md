@@ -4,6 +4,112 @@ Este documento registra todos los despliegues y cambios importantes realizados e
 
 ---
 
+## 2025-12-10 23:45 UTC - Configuración Completa Dominio hemispher-ia.org 🌐
+
+**Preparado por:** Claude Sonnet 4.5
+**Estado:** 📝 LISTO PARA CONFIGURAR DNS
+**Dominio:** hemispher-ia.org (expira 2026-11-12)
+**Commit:** 672237d
+
+### Cambios Realizados
+
+#### 1. Documentación DNS Completa
+**Archivos creados:**
+- `HOSTINGER_DNS_CAMBIO.md` - Guía específica para Hostinger (registrador actual)
+- `CONFIGURACION_DNS_PASO_A_PASO.md` - Paso a paso con opciones Cloudflare
+- `.env.production` - Variables de entorno para producción
+
+**Contenido:**
+- ✅ Instrucciones detalladas para cambiar DNS en Hostinger
+- ✅ Records A requeridos (@ y www → 82.29.173.205)
+- ✅ Configuración SSL/TLS automática con Let's Encrypt
+- ✅ Troubleshooting completo
+- ✅ Checklist de verificación
+- ✅ Tiempos de propagación estimados
+
+#### 2. SEO y Meta Tags
+**Archivos modificados:**
+- `index.html` - Meta tags completos agregados
+
+**Mejoras SEO:**
+- ✅ Meta tags primarios (title, description, keywords)
+- ✅ Open Graph para Facebook/LinkedIn
+- ✅ Twitter Cards
+- ✅ Canonical URL: https://hemispher-ia.org
+- ✅ Favicon y Apple Touch Icon
+- ✅ Geo tags (Panamá)
+- ✅ Theme color
+- ✅ Idioma cambiado a español (lang="es")
+
+**Archivos SEO existentes:**
+- `public/sitemap.xml` - 13 páginas indexadas
+- `public/robots.txt` - Directivas para crawlers
+
+#### 3. Actualización de Documentación
+**Archivos modificados:**
+- `README.md` - Arquitectura completa y deployment
+- `.gitignore` - Protección de archivos .env
+
+**Contenido README actualizado:**
+- ✅ URL del sitio: https://hemispher-ia.org
+- ✅ Arquitectura de deployment completa
+- ✅ Variables de entorno documentadas
+- ✅ Proceso de deployment paso a paso
+- ✅ Referencias a guías DNS
+- ✅ Contactos y redes sociales actualizadas
+
+#### 4. Configuración de Producción
+**Archivo:** `.env.production`
+```bash
+VITE_API_URL=https://hemispher-ia.org
+VITE_APP_NAME=Hemispher-IA
+VITE_ENABLE_CONTACT_FORM=true
+VITE_PLAUSIBLE_DOMAIN=hemispher-ia.org
+```
+
+### Estado DNS Actual
+```bash
+# DNS actual (antes de cambios)
+hemispher-ia.org → 147.79.119.42, 147.79.116.159 (Hostinger)
+www.hemispher-ia.org → CDN Hostinger
+
+# DNS objetivo (después de cambios)
+hemispher-ia.org → 82.29.173.205 (VPS)
+www.hemispher-ia.org → 82.29.173.205 (VPS)
+```
+
+### Próximos Pasos Requeridos
+
+**⚠️ ACCIÓN REQUERIDA DEL USUARIO:**
+
+1. **Configurar DNS en Hostinger** (15 minutos)
+   - Seguir guía: `HOSTINGER_DNS_CAMBIO.md`
+   - Cambiar records A a 82.29.173.205
+
+2. **Esperar Propagación** (30 min - 2 horas)
+   - Verificar con `nslookup hemispher-ia.org`
+   - Debe mostrar: 82.29.173.205
+
+3. **Configurar EasyPanel** (5 minutos)
+   - Agregar dominios: hemispher-ia.org, www.hemispher-ia.org
+   - Habilitar SSL/TLS
+   - Force HTTPS redirect
+
+4. **Verificar Deployment** (1 minuto)
+   - Abrir https://hemispher-ia.org
+   - Verificar candado verde (SSL)
+   - Probar todas las páginas
+
+### Notas Técnicas
+
+- **Backend:** Express sirve tanto API como archivos estáticos
+- **SSL:** Automático via Let's Encrypt en EasyPanel
+- **Emails:** Ya configurados con @hemispher-ia.org
+- **Redes sociales:** Enlaces ya apuntan a /company/hemispher-ia
+- **Analytics:** Preparado para Google Analytics (GA_ID pendiente)
+
+---
+
 ## 2025-12-10 22:10 UTC - Sistema Completo de Impacto + Testimonios ✅
 
 **Deployado por:** Claude Sonnet 4.5
