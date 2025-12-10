@@ -35,13 +35,29 @@ const PublicInfoPage = () => {
       title: "Lanzamiento de Hemispher-IA: Nueva era para la IA ética en América Latina",
       date: "2024-11-24",
       category: "Institucional",
-      excerpt: "Presentamos oficialmente nuestra iniciativa comprometida con el desarrollo sostenible..."
+      excerpt: "Presentamos oficialmente nuestra iniciativa comprometida con el desarrollo sostenible...",
+      image: "/images/hemispher-ia-desarrollo-web-04.png"
     },
     {
       title: "Primer Taller Regional sobre IA y Cambio Climático",
       date: "2024-11-20",
       category: "Proyectos",
-      excerpt: "Expertos de 12 países se reunieron para explorar aplicaciones de IA en resiliencia climática..."
+      excerpt: "Expertos de 12 países se reunieron para explorar aplicaciones de IA en resiliencia climática...",
+      image: "/images/hemispher-ia-desarrollo-web-01.jpeg"
+    },
+    {
+      title: "Alianza estratégica con organismos internacionales",
+      date: "2024-11-18",
+      category: "Alianzas",
+      excerpt: "Hemispher-IA firma acuerdos de colaboración con UNICEF y organismos regionales para proyectos de impacto social...",
+      image: "/images/Socios Estratégicos.jpeg"
+    },
+    {
+      title: "Nuevas oficinas en Ciudad del Saber, Panamá",
+      date: "2024-11-15",
+      category: "Institucional",
+      excerpt: "Inauguramos nuestro nuevo espacio de innovación y co-creación en el corazón de la Ciudad del Saber...",
+      image: "/images/oficinas1.jpeg"
     }
   ];
 
@@ -59,14 +75,32 @@ const PublicInfoPage = () => {
       date: "2025-01-15",
       location: "Ciudad de Panamá",
       type: "Presencial + Virtual",
-      status: "Inscripciones abiertas"
+      status: "Inscripciones abiertas",
+      image: "/images/oficinas2.jpeg"
     },
     {
       title: "Taller: Introducción al Knowledge Brokering",
       date: "2024-12-10",
       location: "Virtual",
       type: "Online",
-      status: "Próximamente"
+      status: "Próximamente",
+      image: "/images/Intermediación del Conocimiento.jpeg"
+    },
+    {
+      title: "Webinar: Marketing de Influencia para Impacto Social",
+      date: "2024-12-18",
+      location: "Virtual",
+      type: "Online",
+      status: "Inscripciones abiertas",
+      image: "/images/Marketing de Influencia y Comunicación de Impacto.jpeg"
+    },
+    {
+      title: "Presentación de Proyectos Piloto 2024",
+      date: "2024-12-20",
+      location: "Ciudad del Saber, Panamá",
+      type: "Presencial",
+      status: "Próximamente",
+      image: "/images/Proyectos Piloto.jpeg"
     }
   ];
 
@@ -88,13 +122,29 @@ const PublicInfoPage = () => {
       title: "Guía: Implementación de IA Ética en Proyectos Sociales",
       type: "PDF",
       size: "2.5 MB",
-      license: "CC BY 4.0"
+      license: "CC BY 4.0",
+      image: "/images/estrategia y consultoria de ia.jpeg"
     },
     {
       title: "Informe: Estado de la IA en América Latina 2024",
       type: "PDF",
       size: "5.1 MB",
-      license: "CC BY-SA 4.0"
+      license: "CC BY-SA 4.0",
+      image: "/images/hemispher-ia-desarrollo-web-20.jpeg"
+    },
+    {
+      title: "Manual: Knowledge Brokering para Organizaciones Sociales",
+      type: "PDF",
+      size: "3.2 MB",
+      license: "CC BY 4.0",
+      image: "/images/Intermediación del Conocimiento.jpeg"
+    },
+    {
+      title: "Toolkit: Marketing de Influencia con Propósito",
+      type: "PDF",
+      size: "4.8 MB",
+      license: "CC BY-SA 4.0",
+      image: "/images/Marketing de Influencia y Comunicación de Impacto.jpeg"
     }
   ];
 
@@ -169,12 +219,21 @@ const PublicInfoPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card className="hover:shadow-lg transition-shadow h-full">
-                      <CardHeader>
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+                    <Card className="hover:shadow-lg transition-shadow h-full overflow-hidden">
+                      <div className="relative h-48 overflow-hidden">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                        />
+                        <div className="absolute top-4 left-4">
+                          <span className="text-xs font-semibold text-white bg-blue-600 px-3 py-1 rounded-full shadow-lg">
                             {item.category}
                           </span>
+                        </div>
+                      </div>
+                      <CardHeader>
+                        <div className="flex items-center justify-between mb-2">
                           <span className="text-sm text-gray-500">{item.date}</span>
                         </div>
                         <CardTitle className="text-xl">{item.title}</CardTitle>
@@ -231,14 +290,20 @@ const PublicInfoPage = () => {
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {events.map((event, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">
+                  <Card key={index} className="hover:shadow-lg transition-shadow overflow-hidden">
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      />
+                      <div className="absolute top-4 right-4">
+                        <span className="text-xs font-semibold text-white bg-green-600 px-3 py-1 rounded-full shadow-lg">
                           {event.status}
                         </span>
-                        <Calendar className="h-5 w-5 text-gray-400" />
                       </div>
+                    </div>
+                    <CardHeader>
                       <CardTitle>{event.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -375,18 +440,23 @@ const PublicInfoPage = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {resources.map((resource, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <Card key={index} className="hover:shadow-lg transition-shadow overflow-hidden">
+                    <div className="relative h-40 overflow-hidden">
+                      <img
+                        src={resource.image}
+                        alt={resource.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                        <Download className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
                     <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <h3 className="font-bold text-gray-900 mb-2">{resource.title}</h3>
-                          <div className="flex items-center gap-4 text-sm text-gray-500">
-                            <span>{resource.type}</span>
-                            <span>•</span>
-                            <span>{resource.size}</span>
-                          </div>
-                        </div>
-                        <Download className="h-6 w-6 text-blue-600" />
+                      <h3 className="font-bold text-gray-900 mb-2">{resource.title}</h3>
+                      <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                        <span>{resource.type}</span>
+                        <span>•</span>
+                        <span>{resource.size}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full">

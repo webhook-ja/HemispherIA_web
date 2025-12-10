@@ -79,6 +79,24 @@ const initDatabase = async () => {
       )
     `);
 
+    // Create donations table for impact calculator
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS donations (
+        id SERIAL PRIMARY KEY,
+        type VARCHAR(50) NOT NULL,
+        amount DECIMAL(10,2),
+        hours INTEGER,
+        items INTEGER,
+        impact JSONB,
+        email VARCHAR(255),
+        name VARCHAR(255),
+        phone VARCHAR(50),
+        message TEXT,
+        status VARCHAR(50) DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     // Create indexes for better performance
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_contacts_created_at ON contacts(created_at DESC)`);
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_contacts_read ON contacts(read)`);
@@ -90,6 +108,8 @@ const initDatabase = async () => {
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_page_visits_page_path ON page_visits(page_path)`);
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_sessions_token ON sessions(token)`);
     await pool.query(`CREATE INDEX IF NOT EXISTS idx_activity_log_user ON activity_log(user_id)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_donations_created_at ON donations(created_at DESC)`);
+    await pool.query(`CREATE INDEX IF NOT EXISTS idx_donations_type ON donations(type)`);
 
     // Create default admin user if none exists
     const adminExists = await pool.query('SELECT id FROM admin_users LIMIT 1');
@@ -309,6 +329,74 @@ app.post('/api/contacts', async (req, res) => {
   } catch (error) {
     console.error('Error creating contact:', error);
     res.status(500).json({ error: 'Failed to save contact' });
+  }
+});
+
+// Donations API (public)
+app.post('/api/donations', async (req, res) => {
+  try {
+    const { type, amount, hours, items, impact, email, name, phone, message } = req.body;
+
+    if (!type || !impact) {
+      return res.status(400).json({ error: 'Type and impact are required' });
+    }
+
+    // Validate type
+    if (!['monetary', 'training', 'physical'].includes(type)) {
+      return res.status(400).json({ error: 'Invalid donation type' });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO donations (type, amount, hours, items, impact, email, name, phone, message, status)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
+      [
+        type,
+        amount || null,
+        hours || null,
+        items || null,
+        JSON.stringify(impact),
+        email || null,
+        name || null,
+        phone || null,
+        message || null,
+        'pending'
+      ]
+    );
+
+    res.status(201).json({
+      success: true,
+      donation: result.rows[0],
+      message: 'Gracias por tu contribución. Te contactaremos pronto con más detalles.'
+    });
+  } catch (error) {
+    console.error('Error creating donation:', error);
+    res.status(500).json({ error: 'Failed to save donation' });
+  }
+});
+
+// Get donations statistics (public)
+app.get('/api/donations/stats', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        type,
+        COUNT(*) as total_donations,
+        SUM(CASE WHEN type = 'monetary' THEN amount ELSE 0 END) as total_monetary,
+        SUM(CASE WHEN type = 'training' THEN hours ELSE 0 END) as total_hours,
+        SUM(CASE WHEN type = 'physical' THEN items ELSE 0 END) as total_items
+      FROM donations
+      GROUP BY type
+    `);
+
+    const totalResult = await pool.query('SELECT COUNT(*) as total FROM donations');
+
+    res.json({
+      byType: result.rows,
+      total: parseInt(totalResult.rows[0].total)
+    });
+  } catch (error) {
+    console.error('Error fetching donation stats:', error);
+    res.status(500).json({ error: 'Failed to fetch statistics' });
   }
 });
 

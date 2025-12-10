@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
 import InteractiveMap from "@/components/InteractiveMap";
+import ImpactCalculator from "@/components/ImpactCalculator";
 
 const ProjectsPage = () => {
   const [selectedProject, setSelectedProject] = useState(0);
@@ -432,6 +433,146 @@ const ProjectsPage = () => {
               Explora nuestros proyectos activos en América Latina y el Caribe. Haz clic en los marcadores para ver más detalles.
             </motion.p>
             <InteractiveMap />
+          </div>
+        </div>
+      </section>
+
+      {/* Calculadora de Impacto */}
+      <ImpactCalculator />
+
+      {/* Testimonios */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Testimonios de Nuestros Beneficiarios
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Historias reales de transformación y esperanza en comunidades de toda América Latina
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "María González",
+                role: "Profesora",
+                location: "Escuela Rural San José, Colombia",
+                image: "/images/hemispher-ia-desarrollo-web-06.jpeg",
+                quote: "Gracias al programa de capacitación digital de Hemispher-IA, logramos entrenar a 15 profesores y alcanzar a más de 400 estudiantes con herramientas tecnológicas que antes eran inaccesibles.",
+                project: "IA para monitoreo de salud materna",
+              },
+              {
+                name: "Carlos Mendoza",
+                role: "Líder Comunitario",
+                location: "Comunidad Indígena Ashuar, Ecuador",
+                image: "/images/hemispher-ia-desarrollo-web-07.jpeg",
+                quote: "La plataforma de educación financiera nos permitió mejorar la gestión de nuestros recursos comunitarios. Hoy 200 familias tienen acceso a educación financiera adaptada a nuestra cultura.",
+                project: "Educación financiera para comunidades indígenas",
+              },
+              {
+                name: "Ana Rodríguez",
+                role: "Coordinadora de Salud",
+                location: "Centro de Salud Comunitario, Panamá",
+                image: "/images/hemispher-ia-desarrollo-web-08.jpeg",
+                quote: "Con el apoyo de Hemispher-IA implementamos un sistema de monitoreo que mejoró nuestros indicadores de salud materna en un 35%. Salvamos vidas con tecnología responsable.",
+                project: "IA para monitoreo de salud materna",
+              },
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="h-full hover:shadow-xl transition-shadow">
+                  <div className="relative h-64 overflow-hidden rounded-t-lg">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-xl font-bold">{testimonial.name}</h3>
+                      <p className="text-sm opacity-90">{testimonial.role}</p>
+                      <p className="text-xs opacity-75 flex items-center mt-1">
+                        <MapPin className="h-3 w-3 mr-1" />
+                        {testimonial.location}
+                      </p>
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="mb-4">
+                      <span className="text-5xl text-blue-200">"</span>
+                    </div>
+                    <p className="text-gray-700 italic mb-4 leading-relaxed">
+                      {testimonial.quote}
+                    </p>
+                    <div className="pt-4 border-t border-gray-200">
+                      <span className="text-xs text-blue-600 font-semibold">
+                        Proyecto: {testimonial.project}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Banner de Aliados */}
+      <section className="py-16 bg-gradient-to-r from-gray-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Nuestros Aliados Estratégicos
+            </h2>
+            <p className="text-lg text-gray-600">
+              Trabajamos junto a organizaciones líderes para maximizar nuestro impacto
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center">
+            {[
+              { name: "UNICEF", logo: "🦄" },
+              { name: "ACNUR", logo: "🌐" },
+              { name: "Greenpeace", logo: "🌿" },
+              { name: "Gates Foundation", logo: "💡" },
+              { name: "MinSalud Colombia", logo: "⚕️" },
+              { name: "Banco Central", logo: "🏦" },
+              { name: "UNESCO", logo: "📚" },
+              { name: "Gobierno de Panamá", logo: "🇵🇦" },
+            ].map((partner, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                whileHover={{ scale: 1.1 }}
+                className="flex flex-col items-center justify-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow"
+              >
+                <div className="text-4xl mb-2">{partner.logo}</div>
+                <p className="text-sm font-semibold text-gray-700 text-center">
+                  {partner.name}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
