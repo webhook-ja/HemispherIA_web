@@ -2,69 +2,115 @@
 
 Una plataforma profesional para Hemispher-IA que conecta conocimiento, talento y tecnología para un futuro sostenible en América Latina y el Caribe.
 
+🌐 **Sitio web:** [https://hemispher-ia.org](https://hemispher-ia.org)
+
 ## Características
 
-- Diseño responsive y moderno
-- Animaciones sutiles para una experiencia de usuario mejorada
-- Efectos de sonido interactivos
-- Componentes reutilizables
-- Optimizado para SEO
-- Compatible con EasyPanel deployment
+### Frontend
+- React 18 + TypeScript + Vite
+- Diseño responsive y moderno con Tailwind CSS
+- shadcn/ui components + Framer Motion animations
+- Componentes reutilizables y accesibles
+- SEO optimizado (meta tags, sitemap.xml, robots.txt)
+- Sistema de calculadora de impacto con 3 dimensiones
 
-## Despliegue en EasyPanel
+### Backend
+- Express.js con PostgreSQL
+- API RESTful para contenido, contactos, donaciones
+- Sistema de autenticación con sesiones
+- Panel de administración con GrapeJS page builder
+- Email service con Nodemailer
+- Análisis y tracking de visitas
 
-### Prerrequisitos
+### Deployment
+- Docker multi-stage build
+- Desplegado en VPS con Docker Swarm
+- Gestionado por EasyPanel
+- SSL/TLS con Let's Encrypt
+- Dominio: **hemispher-ia.org**
 
-1. Cuenta en GitHub
-2. Cuenta en EasyPanel (https://easypanel.io)
-3. Acceso al repositorio
+## Arquitectura de Despliegue
 
-### Pasos para el despliegue
+### Infraestructura
+- **VPS:** 82.29.173.205
+- **Dominio:** hemispher-ia.org
+- **Plataforma:** EasyPanel (Docker Swarm)
+- **Servicio:** n8n_hemiph
+- **Base de datos:** PostgreSQL (hemispheria)
 
-1. **Fork o clona este repositorio**
+### Variables de Entorno
+
+El proyecto usa variables de entorno para configuración:
+
+**Frontend (.env.production):**
+```bash
+VITE_API_URL=https://hemispher-ia.org
+VITE_APP_NAME=Hemispher-IA
+VITE_ENABLE_CONTACT_FORM=true
+```
+
+**Backend (en servidor VPS):**
+```bash
+DB_HOST=postgres_postgres
+DB_PORT=5432
+DB_NAME=hemispheria
+DB_USER=postgres
+DB_PASSWORD=M4x1m012
+PORT=80
+NODE_ENV=production
+JWT_SECRET=hemispheria-secret-key-2024
+```
+
+### Proceso de Despliegue
+
+1. **Preparar cambios localmente:**
    ```bash
-   git clone https://github.com/tu-usuario/hemispheria-website.git
+   # Hacer cambios en el código
+   npm run build  # Verificar que build funcione
+   git add .
+   git commit -m "feat: Descripción del cambio"
+   git push origin main
    ```
 
-2. **Configura el proyecto en EasyPanel**
-   - Ingresa a tu panel de EasyPanel
-   - Crea un nuevo proyecto
-   - Selecciona "Static Site"
-   - Conecta tu repositorio de GitHub
-   - Configura las variables de entorno si es necesario
-   - Establece el directorio de salida como `dist`
-
-3. **Configuración de build**
-   El comando de build está configurado en `package.json`:
+2. **Conectar al VPS:**
    ```bash
-   npm run build
+   ssh -i "C:/Users/TRENDING PC/srv750816.key" root@82.29.173.205
    ```
 
-4. **Despliegue automático**
-   - EasyPanel se encargará de hacer build y deploy automáticamente en cada push a la rama principal
-   - Puedes configurar despliegues en ramas específicas si lo deseas
-
-## Despliegue con Docker en EasyPanel
-
-La aplicación también puede publicarse mediante una imagen Docker, útil si prefieres controlar el runtime o reutilizar la misma imagen en varios entornos.
-
-1. **Construye la imagen localmente (opcional)**
+3. **Actualizar código en el servidor:**
    ```bash
-   docker build -t tu-usuario/hemispheria:latest .
+   cd /etc/easypanel/projects/n8n/hemiph/code
+   git pull origin main
+   # O copiar archivos con SCP si no hay git:
+   # scp -i "srv750816.key" file.tsx root@82.29.173.205:/path/
    ```
 
-2. **Sube la imagen a tu registro**
+4. **Rebuild y redeploy:**
    ```bash
-   docker push tu-usuario/hemispheria:latest
+   docker build -t easypanel/n8n/hemiph:latest .
+   docker service update --force --image easypanel/n8n/hemiph:latest n8n_hemiph
    ```
 
-3. **En EasyPanel**
-   - Crea un nuevo proyecto y elige la opción **Docker Image**
-   - Indica la URL de la imagen (por ejemplo, `tu-usuario/hemispheria:latest`)
-   - Define la variable de entorno `PORT=80` si EasyPanel lo requiere
-   - No necesitas comandos adicionales: la imagen ya expone el puerto 80 y ejecuta nginx con la SPA
+5. **Verificar deployment:**
+   ```bash
+   curl -s -o /dev/null -w "%{http_code}" https://hemispher-ia.org
+   # Debe retornar: 200
+   ```
 
-> El archivo `Dockerfile` utiliza una build multi-stage para compilar la aplicación con Node.js y servirla con nginx usando la configuración incluida en `nginx.conf`.
+### Configuración del Dominio
+
+Ver guías detalladas:
+- `HOSTINGER_DNS_CAMBIO.md` - Configuración DNS en Hostinger
+- `CONFIGURACION_DNS_PASO_A_PASO.md` - Guía paso a paso
+- `GUIA_CONFIGURACION_DOMINIO.md` - Guía completa con opciones
+
+**DNS Records requeridos:**
+```
+A    | @   | 82.29.173.205
+A    | www | 82.29.173.205
+```
+
+**SSL/TLS:** Automático via Let's Encrypt en EasyPanel
 
 ## Desarrollo local
 
@@ -172,4 +218,14 @@ Este proyecto es privado y propiedad de Hemispher-IA.
 
 ## Contacto
 
-Para soporte técnico o preguntas sobre el desarrollo: [tu-email@dominio.com]
+- **Email:** info@hemispher-ia.org
+- **Sitio web:** https://hemispher-ia.org
+- **LinkedIn:** https://linkedin.com/company/hemispher-ia
+- **Twitter:** https://twitter.com/hemispher_ia
+
+## Documentación Adicional
+
+- `CLAUDE.md` - Guía para desarrollo con Claude Code
+- `AI_RULES.md` - Reglas de desarrollo y arquitectura
+- `DEPLOYMENT_HISTORY.md` - Historial de despliegues
+- `HOSTINGER_DNS_CAMBIO.md` - Configuración DNS paso a paso
