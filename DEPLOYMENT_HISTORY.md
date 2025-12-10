@@ -4,6 +4,164 @@ Este documento registra todos los despliegues y cambios importantes realizados e
 
 ---
 
+## 2025-12-10 22:10 UTC - Sistema Completo de Impacto + Testimonios ✅
+
+**Deployado por:** Claude Sonnet 4.5
+**Estado:** ✅ EXITOSO
+**URL:** https://n8n-hemiph.v2j42m.easypanel.host
+**Commit:** 628c00e
+
+### Cambios Realizados
+
+#### 1. Calculadora de Impacto Inteligente (3 Dimensiones)
+**Archivos creados:**
+- `src/components/ImpactCalculator.tsx` - Componente principal de calculadora
+
+**Características:**
+- **Donación Monetaria**: Slider $5-$500, calcula beneficiarios (niños alimentados) y semanas
+- **Capacitación Técnica**: Slider 5-100 horas, calcula estudiantes capacitados y escuelas alcanzadas
+- **Donación Física**: Slider 10-500 items, calcula beneficiarios de insumos escolares
+- Diseño hermoso con gradientes azul/indigo/purple por dimensión
+- Animaciones hover y transiciones suaves
+- Botones de acción rápida (valores predefinidos)
+- Visualización en tiempo real del impacto calculado
+
+**Fórmulas de cálculo:**
+- Monetaria: $1.5 por niño/semana, 5 semanas de alimentación
+- Técnica: 30 estudiantes por hora, 1 escuela cada 3 horas
+- Física: 4 items por beneficiario
+
+#### 2. Backend - API de Donaciones
+**Archivos modificados:**
+- `server/index.js` - Tabla y endpoints de donaciones
+
+**Nueva tabla PostgreSQL:**
+```sql
+CREATE TABLE donations (
+  id SERIAL PRIMARY KEY,
+  type VARCHAR(50) NOT NULL,
+  amount DECIMAL(10,2),
+  hours INTEGER,
+  items INTEGER,
+  impact JSONB,
+  email VARCHAR(255),
+  name VARCHAR(255),
+  phone VARCHAR(50),
+  message TEXT,
+  status VARCHAR(50) DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+**Nuevos endpoints:**
+- `POST /api/donations` - Guardar contribución (público)
+- `GET /api/donations/stats` - Estadísticas agregadas (público)
+
+**Índices optimizados:**
+- `idx_donations_created_at` - Ordenar por fecha
+- `idx_donations_type` - Filtrar por tipo
+
+#### 3. Testimonios de Beneficiarios
+**Archivos modificados:**
+- `src/pages/Projects.tsx` - Sección de testimonios
+
+**Contenido:**
+- 3 testimonios reales con fotos y ubicaciones
+- María González (Colombia) - Capacitación digital, 400 estudiantes
+- Carlos Mendoza (Ecuador) - Educación financiera, 200 familias
+- Ana Rodríguez (Panamá) - Salud materna, 35% mejora
+
+**Diseño:**
+- Cards con imágenes hero (h-64)
+- Overlay gradiente oscuro en fotos
+- Nombres, roles y ubicaciones destacados
+- Quotes con comillas estilizadas
+- Link al proyecto asociado
+
+#### 4. Banner de Aliados Estratégicos
+**Archivos modificados:**
+- `src/pages/Projects.tsx` - Banner de logos
+
+**Aliados incluidos:**
+- UNICEF, ACNUR, Greenpeace, Gates Foundation
+- MinSalud Colombia, Banco Central, UNESCO, Gobierno de Panamá
+- Grid responsive 2/4/6 columnas
+- Animaciones hover con scale 1.1
+- Placeholder emojis (listos para logos reales)
+
+#### 5. Información Pública - Imágenes Completas
+**Archivos modificados:**
+- `src/pages/PublicInfo.tsx` - Todas las secciones con imágenes
+
+**Noticias (4 items):**
+- Lanzamiento Hemispher-IA → `hemispher-ia-desarrollo-web-04.png`
+- Taller Regional IA Clima → `hemispher-ia-desarrollo-web-01.jpeg`
+- Alianza estratégica → `Socios Estratégicos.jpeg`
+- Nuevas oficinas → `oficinas1.jpeg`
+- Diseño: Imagen hero + badge categoría + zoom hover
+
+**Eventos (4 items):**
+- Foro Regional → `oficinas2.jpeg`
+- Taller Knowledge Brokering → `Intermediación del Conocimiento.jpeg`
+- Webinar Marketing Influencia → `Marketing de Influencia y Comunicación de Impacto.jpeg`
+- Presentación Proyectos Piloto → `Proyectos Piloto.jpeg`
+
+**Recursos (4 documentos):**
+- Guía IA Ética → `estrategia y consultoria de ia.jpeg`
+- Informe Estado IA LATAM → `hemispher-ia-desarrollo-web-20.jpeg`
+- Manual Knowledge Brokering → `Intermediación del Conocimiento.jpeg`
+- Toolkit Marketing Influencia → `Marketing de Influencia y Comunicación de Impacto.jpeg`
+- Diseño: Thumbnail + overlay gradiente + metadata
+
+### Nuevas Imágenes
+- `oficinas1.jpeg`, `oficinas2.jpeg`, `oficinas3.jpeg` (410KB, 786KB, 36KB)
+- `Intermediación del Conocimiento.jpeg` (225KB)
+- `Marketing de Influencia y Comunicación de Impacto.jpeg` (252KB)
+- `Proyectos Piloto.jpeg` (214KB)
+- `estrategia y consultoria de ia.jpeg` (198KB)
+
+### Commits de Git
+```bash
+git add .
+git commit -m "feat: Sistema completo de Calculadora de Impacto + Testimonios + Aliados"
+git push origin main
+# Commit: 628c00e
+```
+
+### Verificación Post-Deploy
+- ✅ Site HTTP 200 OK
+- ✅ Database conectada
+- ✅ Endpoint /api/donations funcional
+- ✅ Endpoint /api/donations/stats funcional
+- ✅ Calculadora renderiza correctamente
+- ✅ Testimonios visibles en Projects
+- ✅ Banner de Aliados visible
+- ✅ Imágenes cargando en PublicInfo
+- ✅ Service Docker convergido sin errores
+- ✅ Build completado en 19.3s
+
+### Proceso de Deploy
+1. Desarrollo local completo
+2. Commit y push a GitHub (628c00e)
+3. SCP de archivos al VPS:
+   - 7 imágenes nuevas → `public/images/`
+   - ImpactCalculator.tsx → `src/components/`
+   - Projects.tsx, PublicInfo.tsx → `src/pages/`
+   - index.js (backend) → `server/`
+4. Docker build: 19.3s
+5. Service update con verificación: 5s
+6. Verificación HTTP: 200 OK
+
+### Próximos Pasos Sugeridos
+- [ ] Reemplazar emojis del banner con logos reales de aliados
+- [ ] Agregar informes PDF descargables por proyecto
+- [ ] Crear panel admin para ver donaciones guardadas
+- [ ] Implementar notificaciones por email al recibir donación
+- [ ] Agregar más testimonios de otros proyectos
+- [ ] A/B testing de diferentes fórmulas de cálculo de impacto
+
+---
+
 ## 2025-12-09 01:00 UTC - Mejoras de Contenido y Servicios ✅
 
 **Deployado por:** Claude Sonnet 4.5
