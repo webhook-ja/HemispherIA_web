@@ -240,7 +240,11 @@ const PublicInfoPage = () => {
                       </CardHeader>
                       <CardContent>
                         <p className="text-gray-600 mb-4">{item.excerpt}</p>
-                        <Button variant="ghost" className="text-blue-600">
+                        <Button
+                          variant="ghost"
+                          className="text-blue-600"
+                          onClick={() => alert(`Artículo completo: "${item.title}"\n\nEn producción, esto abriría el artículo completo con:\n- Contenido detallado\n- Imágenes adicionales\n- Videos relacionados\n- Enlaces de referencia`)}
+                        >
                           Leer más <ChevronRight className="ml-2 h-4 w-4" />
                         </Button>
                       </CardContent>
@@ -268,7 +272,10 @@ const PublicInfoPage = () => {
                           <h3 className="text-lg font-bold text-gray-900 mb-2">{item.title}</h3>
                           <p className="text-sm text-gray-500">{item.date}</p>
                         </div>
-                        <Button variant="outline">
+                        <Button
+                          variant="outline"
+                          onClick={() => alert(`Descargando: "${item.file}"\n\nEn producción, esto descargaría el comunicado oficial en PDF.`)}
+                        >
                           <Download className="mr-2 h-4 w-4" />
                           Descargar PDF
                         </Button>
@@ -321,7 +328,10 @@ const PublicInfoPage = () => {
                           {event.type}
                         </div>
                       </div>
-                      <Button className="w-full">
+                      <Button
+                        className="w-full"
+                        onClick={() => alert(`Evento: "${event.title}"\n\nPara registrarte, contáctanos en:\n📧 eventos@hemispher-ia.org\n📱 WhatsApp: +507 6000-0000\n\nMás información disponible próximamente.`)}
+                      >
                         Más información
                       </Button>
                     </CardContent>
@@ -420,7 +430,11 @@ const PublicInfoPage = () => {
                         </div>
                         <span className="text-sm text-gray-500">{item.date}</span>
                       </div>
-                      <Button variant="ghost" className="mt-4 text-blue-600">
+                      <Button
+                        variant="ghost"
+                        className="mt-4 text-blue-600"
+                        onClick={() => alert(`Declaración: "${item.title}"\n\nEn producción, esto abriría el documento completo de posicionamiento institucional.`)}
+                      >
                         Leer declaración completa <ChevronRight className="ml-2 h-4 w-4" />
                       </Button>
                     </CardContent>
@@ -462,7 +476,11 @@ const PublicInfoPage = () => {
                         <span className="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
                           {resource.license}
                         </span>
-                        <Button variant="default" size="sm">
+                        <Button
+                          variant="default"
+                          size="sm"
+                          onClick={() => alert(`Descargando: "${resource.title}"\n\nTamaño: ${resource.size}\nLicencia: ${resource.license}\n\nEn producción, esto descargaría el archivo PDF.`)}
+                        >
                           Descargar
                         </Button>
                       </div>

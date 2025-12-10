@@ -142,8 +142,9 @@ const ProjectsPage = () => {
                 size="lg"
                 variant="outline"
                 className="bg-white text-blue-900 border-white hover:bg-blue-800 hover:text-white"
+                onClick={() => window.open('#impact-calculator', '_self')}
               >
-                Descargar Informe Anual
+                Calcular Mi Impacto
               </Button>
             </motion.div>
           </div>
@@ -252,7 +253,11 @@ const ProjectsPage = () => {
                           <span className="text-sm font-semibold text-blue-700 bg-blue-50 px-3 py-1 rounded-full">
                             {project.impact}
                           </span>
-                          <Button variant="ghost" size="sm">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setSelectedProject(project.id)}
+                          >
                             Ver detalles
                           </Button>
                         </div>
@@ -353,7 +358,14 @@ const ProjectsPage = () => {
                         ))}
                       </div>
 
-                      <Button className="w-full">
+                      <Button
+                        className="w-full"
+                        onClick={() => {
+                          const project = projects[selectedProject];
+                          // Simulación de descarga - en producción, esto apuntaría a PDFs reales
+                          alert(`Descargando informe: "${project.title}"\n\nEn producción, esto descargaría un PDF con:\n- Objetivos del proyecto\n- Metodología\n- Resultados obtenidos\n- Impacto cuantificado\n- Testimonios\n- Próximos pasos`);
+                        }}
+                      >
                         Descargar Informe Completo
                       </Button>
                     </div>
@@ -438,7 +450,9 @@ const ProjectsPage = () => {
       </section>
 
       {/* Calculadora de Impacto */}
-      <ImpactCalculator />
+      <div id="impact-calculator">
+        <ImpactCalculator />
+      </div>
 
       {/* Testimonios */}
       <section className="py-20 bg-white">

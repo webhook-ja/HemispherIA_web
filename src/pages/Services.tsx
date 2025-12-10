@@ -16,9 +16,11 @@ import {
 } from "lucide-react";
 import AnimatedNavbar from "@/components/AnimatedNavbar";
 import AnimatedFooter from "@/components/AnimatedFooter";
+import { useNavigate } from "react-router-dom";
 
 const ServicesPage = () => {
   const [activeService, setActiveService] = useState(0);
+  const navigate = useNavigate();
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
   const services = [
@@ -136,8 +138,9 @@ const ServicesPage = () => {
                 size="lg"
                 variant="outline"
                 className="bg-white text-blue-900 border-white hover:bg-blue-800 hover:text-white"
+                onClick={() => navigate('/contact')}
               >
-                Descargar Nuestro Portafolio
+                Solicitar Consulta Gratuita
               </Button>
             </motion.div>
           </div>
@@ -193,7 +196,11 @@ const ServicesPage = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-gray-600 mb-4">{service.description}</p>
-                    <Button variant="ghost" className="p-0 h-auto font-medium">
+                    <Button
+                      variant="ghost"
+                      className="p-0 h-auto font-medium"
+                      onClick={() => setActiveService(service.id)}
+                    >
                       Ver detalles
                       <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
@@ -286,7 +293,11 @@ const ServicesPage = () => {
                           {caseStudy.impact}
                         </span>
                       </div>
-                      <Button variant="link" className="p-0 h-auto">
+                      <Button
+                        variant="link"
+                        className="p-0 h-auto"
+                        onClick={() => navigate('/projects')}
+                      >
                         Ver detalles
                         <ChevronRight className="ml-1 h-4 w-4" />
                       </Button>

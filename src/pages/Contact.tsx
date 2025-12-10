@@ -128,13 +128,15 @@ const ContactPage = () => {
                   size="lg"
                   variant="outline"
                   className="bg-white text-blue-900 border-white hover:bg-blue-800 hover:text-white"
+                  onClick={() => window.open('mailto:contacto@hemispher-ia.org?subject=Solicitud de Reunión', '_blank')}
                 >
                   Programar una reunión
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="ghost" 
+                <Button
+                  size="lg"
+                  variant="ghost"
                   className="text-white hover:bg-white/20"
+                  onClick={() => document.getElementById('mapa-ubicacion')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Ver ubicación
                 </Button>
@@ -142,6 +144,7 @@ const ContactPage = () => {
             </motion.div>
             
             <motion.div
+              id="mapa-ubicacion"
               className="relative"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -237,19 +240,21 @@ const ContactPage = () => {
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Síguenos en redes</h3>
                 <div className="flex space-x-4">
                   {[
-                    { icon: <Linkedin className="h-5 w-5" />, name: "LinkedIn" },
-                    { icon: <Instagram className="h-5 w-5" />, name: "Instagram" },
-                    { icon: <Twitter className="h-5 w-5" />, name: "Twitter" }
+                    { icon: <Linkedin className="h-5 w-5" />, name: "LinkedIn", url: "https://linkedin.com/company/hemispher-ia" },
+                    { icon: <Instagram className="h-5 w-5" />, name: "Instagram", url: "https://instagram.com/hemispher_ia" },
+                    { icon: <Twitter className="h-5 w-5" />, name: "Twitter", url: "https://twitter.com/hemispher_ia" }
                   ].map((social, index) => (
                     <motion.div
                       key={index}
                       whileHover={{ y: -5, scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="icon"
                         className="w-12 h-12 rounded-full"
+                        onClick={() => window.open(social.url, '_blank')}
+                        aria-label={`Seguir en ${social.name}`}
                       >
                         {social.icon}
                       </Button>
