@@ -1062,6 +1062,13 @@ app.delete('/api/templates/:id', authenticate, async (req, res) => {
 // Serve static files from the dist directory
 app.use(express.static(path.join(__dirname, '../dist')));
 
+// ACME challenge support for Let's Encrypt (must be before SPA catch-all)
+const acmeDir = path.join(__dirname, '../.well-known/acme-challenge');
+if (!fs.existsSync(acmeDir)) {
+  fs.mkdirSync(acmeDir, { recursive: true });
+}
+app.use('/.well-known/acme-challenge', express.static(acmeDir));
+
 // Handle SPA routing - send all other requests to index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
