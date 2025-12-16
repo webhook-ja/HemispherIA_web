@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Set environment
 ENV NODE_ENV=production
-ENV PORT=80
+ENV PORT=3000
 
 # Copy package files
 COPY package.json package-lock.json* ./
@@ -37,7 +37,7 @@ COPY server ./server
 COPY --from=builder /app/dist ./dist
 
 # Expose port
-EXPOSE 80
+EXPOSE 3000
 
 # Start the server
 CMD ["node", "server/index.js"]
