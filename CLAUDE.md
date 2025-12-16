@@ -8,20 +8,234 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Key Feature**: Includes a GrapeJS-based page builder for drag-and-drop content creation in the admin panel.
 
+## 🚨 CRITICAL: Deployment Issues & Solutions
+
+### ⚠️ PROBLEMA COMÚN: Easypanel Borra Archivos Durante Rebuild
+
+**Síntoma**: Error `package.json: not found` o `nginx.conf: not found` durante build de Docker.
+
+**Causa**: Easypanel limpia el directorio `/etc/easypanel/projects/n8n/hemiph/code/` antes de rebuild, dejando solo un Dockerfile antiguo con nginx.
+
+**SOLUCIÓN DEFINITIVA - Rebuild Manual:**
+
+```bash
+# 1. Copiar TODOS los archivos al servidor
+cd HemispherIA_web_git
+
+# Archivos de configuración
+scp -i "srv750816.key" Dockerfile package.json package-lock.json *.config.* *.json index.html .gitignore .env.example root@82.29.173.205:/etc/easypanel/projects/n8n/hemiph/code/
+
+# Directorios completos
+scp -i "srv750816.key" -r server src public root@82.29.173.205:/etc/easypanel/projects/n8n/hemiph/code/
+
+# 2. Build MANUAL en el servidor (NO usar UI de Easypanel)
+ssh -i "srv750816.key" root@82.29.173.205 "cd /etc/easypanel/projects/n8n/hemiph/code && docker build --no-cache -t easypanel/n8n/hemiph:latest ."
+
+# 3. Actualizar servicio Docker Swarm
+ssh -i "srv750816.key" root@82.29.173.205 "docker service update --force --image easypanel/n8n/hemiph:latest n8n_hemiph"
+
+# 4. Verificar
+curl -I https://n8n-hemiph.v2j42m.easypanel.host/
+curl https://n8n-hemiph.v2j42m.easypanel.host/api/health
+```
+
+**IMPORTANTE**:
+- ❌ NO usar el botón "Deploy" de Easypanel UI
+- ✅ SIEMPRE hacer build manual con los comandos anteriores
+- ✅ El Dockerfile CORRECTO usa Node.js + Express (NO nginx)
+
+---
+
+### 🔧 Dockerfile Correcto
+
+**ESTE es el Dockerfile correcto (verifica que esté en el servidor):**
+
+```dockerfile
+# syntax=docker/dockerfile:1
+
+# Build stage - compile frontend
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
+
+# Install all dependencies (including devDependencies for build)
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Build the frontend
+RUN npm run build
+
+# Production stage - Node.js server
+FROM node:20-alpine AS production
+WORKDIR /app
+
+# Set environment
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install only production dependencies
+RUN npm install --omit=dev
+
+# Copy server code
+COPY server ./server
+
+# Copy built frontend from builder stage
+COPY --from=builder /app/dist ./dist
+
+# Expose port
+EXPOSE 3000
+
+# Start the server
+CMD ["node", "server/index.js"]
+```
+
+**❌ NUNCA usar este Dockerfile (ANTIGUO/INCORRECTO):**
+```dockerfile
+# Este es el Dockerfile VIEJO que causa errores
+FROM nginx:1.27-alpine  # ❌ INCORRECTO
+COPY nginx.conf /etc/nginx/conf.d/default.conf  # ❌ Archivo no existe
+```
+
+---
+
+### 🌐 Configuración de Traefik (Routing HTTPS)
+
+**Problema**: Easypanel regenera `main.yaml` automáticamente, borrando cambios manuales.
+
+**Solución**: Archivo de configuración separado y persistente.
+
+**Archivo**: `/etc/easypanel/traefik/config/hemiph-custom.yml`
+
+```yaml
+http:
+  routers:
+    http-n8n_hemiph-easypanel:
+      service: n8n_hemiph-easypanel
+      rule: Host(`n8n-hemiph.v2j42m.easypanel.host`)
+      priority: 10
+      middlewares:
+        - redirect-to-https
+      entryPoints:
+        - http
+
+    https-n8n_hemiph-easypanel:
+      service: n8n_hemiph-easypanel
+      rule: Host(`n8n-hemiph.v2j42m.easypanel.host`)
+      priority: 10
+      tls:
+        certResolver: letsencrypt
+      entryPoints:
+        - https
+
+  services:
+    n8n_hemiph-easypanel:
+      loadBalancer:
+        servers:
+          - url: http://n8n_hemiph:3000/
+        passHostHeader: true
+```
+
+**Cómo aplicar la configuración:**
+
+```bash
+# 1. Copiar archivo al servidor
+scp -i "srv750816.key" hemiph-custom.yml root@82.29.173.205:/etc/easypanel/traefik/config/
+
+# 2. Recargar Traefik (sin reiniciar)
+ssh -i "srv750816.key" root@82.29.173.205 "docker kill -s HUP \$(docker ps -q --filter name=traefik)"
+
+# 3. Verificar
+curl -I https://n8n-hemiph.v2j42m.easypanel.host/
+# Debe devolver: HTTP/1.1 200 OK
+```
+
+**Backup local**: `C:\Users\TRENDING PC\hemiph-custom.yml`
+
+---
+
+### 📦 Archivos Críticos que DEBEN estar en el Servidor
+
+Verifica que estos archivos existan en `/etc/easypanel/projects/n8n/hemiph/code/`:
+
+```bash
+ssh root@82.29.173.205 "ls -la /etc/easypanel/projects/n8n/hemiph/code/"
+
+# Debe mostrar:
+✅ Dockerfile (859 bytes - con Node.js + Express)
+✅ package.json
+✅ package-lock.json
+✅ index.html
+✅ vite.config.ts
+✅ tailwind.config.ts
+✅ tsconfig.json, tsconfig.app.json, tsconfig.node.json
+✅ server/ (directorio con index.js, email.js)
+✅ src/ (directorio con App.tsx, components/, pages/, etc.)
+✅ public/ (directorio con favicon.ico, logo.jpeg, images/, team/, videos/)
+```
+
+**Si falta algún archivo**: Ejecutar el proceso de "Rebuild Manual" completo.
+
+---
+
+### 🔍 Diagnóstico Rápido
+
+**Si el sitio da 404:**
+
+```bash
+# 1. Verificar que el contenedor está corriendo
+ssh root@82.29.173.205 "docker service ps n8n_hemiph --no-trunc"
+# Debe mostrar: Running
+
+# 2. Verificar logs del servidor
+ssh root@82.29.173.205 "docker service logs --tail 20 n8n_hemiph"
+# Debe mostrar:
+# ✅ Database initialized successfully
+# ✅ Server running on port 3000
+# ✅ SMTP Server ready to send emails
+
+# 3. Verificar configuración de Traefik
+ssh root@82.29.173.205 "cat /etc/easypanel/traefik/config/hemiph-custom.yml"
+# Debe existir y contener la configuración correcta
+
+# 4. Test desde dentro del servidor
+ssh root@82.29.173.205 "curl -s http://localhost:3000/ | head -10"
+# Debe devolver HTML
+
+# 5. Test desde fuera
+curl -I https://n8n-hemiph.v2j42m.easypanel.host/
+# Debe devolver: HTTP/1.1 200 OK
+```
+
+**Si algún test falla**: Ejecutar "Rebuild Manual" completo.
+
+---
+
 ## Commands
 
 ```bash
-# Development
+# Development (Local)
 npm install          # Install dependencies
 npm run dev          # Start Vite dev server (localhost:5173)
 
-# Production
+# Production (Local build)
 npm run build        # Build frontend with Vite
-npm start            # Start Express server (serves API + static files on port 3000)
+npm start            # Start Express server (port 3000)
 
 # Linting
 npm run lint         # Run ESLint
+
+# Deployment (Manual)
+# Ver sección "SOLUCIÓN DEFINITIVA - Rebuild Manual" arriba
 ```
+
+---
 
 ## Architecture
 
@@ -61,8 +275,18 @@ npm run lint         # Run ESLint
 - Activity logging for admin actions
 - Page visit tracking for analytics
 - Default admin user: `admin` / `admin123` (created on first run)
+- Listens on `0.0.0.0:3000` (permite conexiones desde Docker)
+
+---
 
 ## Database Schema (PostgreSQL)
+
+**Connection Details**:
+- Host: `postgres_postgres` (Docker network)
+- Port: `5432`
+- Database: `hemispheria`
+- User: `postgres`
+- Password: `M4x1m012`
 
 **Content Tables**:
 - `contacts` - Contact form submissions
@@ -78,6 +302,8 @@ npm run lint         # Run ESLint
 - `sessions` - Active auth sessions
 - `activity_log` - Audit trail of admin actions
 - `page_visits` - Analytics data
+
+---
 
 ## API Endpoints
 
@@ -98,26 +324,26 @@ npm run lint         # Run ESLint
 | `/api/auth/verify` | GET | Verify session |
 | `/api/track` | POST | Page visit tracking |
 
+---
+
 ## Deployment
 
-### Docker Build (Multi-stage)
-```bash
-# Build image
-docker build -t easypanel/n8n/hemiph:latest .
+### Información del Servidor
 
-# Deploy on Docker Swarm
-docker service update --force --image easypanel/n8n/hemiph:latest n8n_hemiph
-```
+- **VPS**: 82.29.173.205
+- **SSH Key**: `C:\Users\TRENDING PC\srv750816.key`
+- **Servicio Docker**: `n8n_hemiph`
+- **Directorio**: `/etc/easypanel/projects/n8n/hemiph/code`
+- **Red Docker**: `easypanel`, `easypanel-n8n`, `easypanel-postgres`
 
-### Easypanel Deployment
-- **Server**: VPS at `82.29.173.205` (SSH key: `srv750816.key`)
-- **Service**: `n8n_hemiph` on Docker Swarm
-- **Path**: `/etc/easypanel/projects/n8n/hemiph/code`
-- **Image**: `easypanel/n8n/hemiph:latest`
-- **Port**: 80 (exposed via Docker)
-- **Networks**: `easypanel`, `easypanel-n8n`, `easypanel-postgres`
+### URLs del Proyecto
 
-### Environment Variables
+- **Producción**: https://n8n-hemiph.v2j42m.easypanel.host/
+- **API Health**: https://n8n-hemiph.v2j42m.easypanel.host/api/health
+- **Admin Panel**: https://n8n-hemiph.v2j42m.easypanel.host/admin
+
+### Environment Variables (Servidor)
+
 ```bash
 # Database
 DB_HOST=postgres_postgres
@@ -127,22 +353,63 @@ DB_USER=postgres
 DB_PASSWORD=M4x1m012
 
 # Server
-PORT=80
+PORT=3000              # ← IMPORTANTE: Puerto 3000 (no 80)
 NODE_ENV=production
 JWT_SECRET=hemispheria-secret-key-2024
 ```
 
-### Deployment Workflow
-1. Make changes locally
-2. Commit and push to GitHub (`main` branch)
-3. SSH to VPS and pull changes OR copy files via SCP
-4. Rebuild Docker image
-5. Update service with `--force` flag
-6. Verify deployment (check site is up)
+### Proceso Completo de Deployment
 
-**Note**: The code directory on the server may not always have a `.git` folder. Use SCP to copy files directly when needed.
+**IMPORTANTE**: NO usar el botón "Deploy" de Easypanel. Siempre hacer deployment manual.
 
-## Tech Stack Rules (from AI_RULES.md)
+```bash
+# 1. Hacer cambios locales y commit
+cd "C:/Users/TRENDING PC/HemispherIA_web_git"
+git add .
+git commit -m "feat: descripción del cambio"
+git push origin main
+
+# 2. Copiar TODOS los archivos al servidor
+scp -i "C:/Users/TRENDING PC/srv750816.key" \
+  Dockerfile package.json package-lock.json *.config.* *.json index.html .gitignore .env.example \
+  root@82.29.173.205:/etc/easypanel/projects/n8n/hemiph/code/
+
+scp -i "C:/Users/TRENDING PC/srv750816.key" -r \
+  server src public \
+  root@82.29.173.205:/etc/easypanel/projects/n8n/hemiph/code/
+
+# 3. Build manual de la imagen Docker
+ssh -i "C:/Users/TRENDING PC/srv750816.key" root@82.29.173.205 \
+  "cd /etc/easypanel/projects/n8n/hemiph/code && \
+   docker build --no-cache -t easypanel/n8n/hemiph:latest ."
+
+# 4. Actualizar servicio Docker Swarm
+ssh -i "C:/Users/TRENDING PC/srv750816.key" root@82.29.173.205 \
+  "docker service update --force --image easypanel/n8n/hemiph:latest n8n_hemiph"
+
+# 5. Esperar convergencia (30-60 segundos)
+sleep 30
+
+# 6. Verificar deployment
+curl -I https://n8n-hemiph.v2j42m.easypanel.host/
+curl https://n8n-hemiph.v2j42m.easypanel.host/api/health
+
+# 7. Ver logs (opcional)
+ssh -i "C:/Users/TRENDING PC/srv750816.key" root@82.29.173.205 \
+  "docker service logs --tail 50 n8n_hemiph"
+```
+
+**Resultado esperado**:
+```
+✅ Build completado: "✓ 2783 modules transformed"
+✅ Service converged successfully
+✅ HTTP 200 OK
+✅ {"status":"ok","database":"connected"}
+```
+
+---
+
+## Tech Stack
 
 **Framework & Language**:
 - React 18 with TypeScript
@@ -150,21 +417,19 @@ JWT_SECRET=hemispheria-secret-key-2024
 - Vite for build tooling
 
 **Styling**:
-- Tailwind CSS for all styling (extensive use of utility classes)
+- Tailwind CSS for all styling
 - shadcn/ui components (DO NOT edit files in `src/components/ui/`)
 - Framer Motion for animations
 - Lucide React for icons
 
-**Component Organization**:
-- Pages go in `src/pages/`
-- Components go in `src/components/`
-- Main landing page is `src/pages/Index.tsx`
-- ALWAYS update main page routes when adding new components
+**Backend**:
+- Express.js
+- PostgreSQL with `pg` driver
+- Nodemailer for emails
+- Multer for file uploads
+- JWT for authentication
 
-**UI Components**:
-- All Radix UI primitives are installed
-- Use shadcn/ui components by importing them
-- Create new wrapper components if customization is needed
+---
 
 ## Important Content Notes
 
@@ -176,56 +441,23 @@ JWT_SECRET=hemispheria-secret-key-2024
 **Project Images** (`src/pages/Projects.tsx`):
 - Images stored in `public/images/`
 - Use `.jpeg` extension for consistency
-- Current project images (lines 26-94):
-  - **Salud materna** (id: 0): `/images/ertd.jpeg` - Health worker with tablet in rural Colombia
-  - **Clima influencers** (id: 1): `/images/hemispher-ia-desarrollo-web-01.jpeg` - Climate activists
-  - **Migración Darién** (id: 2): `/images/hemispher-ia-desarrollo-web-03.jpeg` - Field team with migration map
-  - **Educación financiera** (id: 3): `/images/hemispher-ia-desarrollo-web-02.jpeg` - Indigenous financial education platform
+- Current projects:
+  - Salud materna: `/images/ertd.jpeg`
+  - Clima influencers: `/images/hemispher-ia-desarrollo-web-01.jpeg`
+  - Migración Darién: `/images/hemispher-ia-desarrollo-web-03.jpeg`
+  - Educación financiera: `/images/hemispher-ia-desarrollo-web-02.jpeg`
 
 **Institutional Video** (`src/pages/About.tsx`):
-- Video stored in `public/videos/institucional.mp4` (33 MB)
-- Displays on About page with custom video player controls
-- Uses Hemispher-IA logo as poster/thumbnail (`/logo.jpeg`)
-- **Custom Controls** (appear on hover):
-  - Progress bar with seek functionality
-  - Play/Pause button
-  - Volume control with mute/unmute toggle
-  - Volume slider (expands on hover over volume icon)
-  - Time display (current time / total duration)
-  - Fullscreen button
-  - Subtle gradient background on control panel
-- **Interactions**:
-  - Click video to play/pause
-  - Hover over player to show controls
-  - Controls fade out during playback (except when paused)
-- **Styling**: Custom range slider styles in `src/globals.css`
-- Important: Video files must be copied to server via SCP during deployment
-
-**How to add/update project images:**
-1. Copy image to `public/images/` (local)
-2. Update `image` property in `projects` array in `src/pages/Projects.tsx`
-3. Commit: `git add . && git commit -m "feat: Add [project] image"`
-4. Push: `git push origin main`
-5. Deploy to server:
-   ```bash
-   # Copy file to server
-   scp -i "C:/Users/TRENDING PC/srv750816.key" \
-     "C:/Users/TRENDING PC/HemispherIA_web_git/src/pages/Projects.tsx" \
-     root@82.29.173.205:/etc/easypanel/projects/n8n/hemiph/code/src/pages/
-
-   # Build and deploy
-   ssh -i "C:/Users/TRENDING PC/srv750816.key" root@82.29.173.205 \
-     "cd /etc/easypanel/projects/n8n/hemiph/code && \
-      docker build -t easypanel/n8n/hemiph:latest . && \
-      docker service update --force --image easypanel/n8n/hemiph:latest n8n_hemiph"
-   ```
-6. Verify: `curl -s -o /dev/null -w "%{http_code}" https://n8n-hemiph.v2j42m.easypanel.host/`
+- Video: `public/videos/institucional.mp4` (33 MB)
+- Custom video player with controls
+- Must be copied via SCP during deployment
 
 **Admin Panel**:
-- Access via `/admin` (requires login)
+- Access: `/admin` (requires login)
 - Default credentials: `admin` / `admin123`
-- GrapeJS page builder at `/admin/builder`
-- Nested routes for content, media, comments, settings
+- GrapeJS page builder: `/admin/builder`
+
+---
 
 ## Page Builder (GrapeJS)
 
@@ -239,6 +471,69 @@ JWT_SECRET=hemispheria-secret-key-2024
 - Export to standalone HTML
 
 **Storage**:
-- Pages stored in PostgreSQL `pages` table
-- Stores both raw HTML/CSS and GrapeJS JSON format
-- Uses `components` and `styles` fields for GrapeJS data
+- PostgreSQL `pages` table
+- Stores both HTML/CSS and GrapeJS JSON
+- Fields: `components`, `styles`
+
+---
+
+## Troubleshooting
+
+### Sitio da 404
+
+1. Verificar contenedor: `docker service ps n8n_hemiph`
+2. Verificar logs: `docker service logs --tail 20 n8n_hemiph`
+3. Verificar Traefik: `cat /etc/easypanel/traefik/config/hemiph-custom.yml`
+4. Ejecutar rebuild manual completo
+
+### Error "package.json: not found"
+
+1. Easypanel borró los archivos
+2. Ejecutar "SOLUCIÓN DEFINITIVA - Rebuild Manual" completo
+3. NUNCA usar botón "Deploy" de Easypanel UI
+
+### Error "nginx.conf: not found"
+
+1. El servidor tiene Dockerfile antiguo con nginx
+2. Copiar Dockerfile correcto (con Node.js + Express)
+3. Ejecutar rebuild manual
+
+### Sitio funciona pero da error al hacer cambios
+
+1. Easypanel probablemente regeneró archivos
+2. Volver a copiar todos los archivos con SCP
+3. Hacer build manual
+
+---
+
+## Checklist Pre-Deployment
+
+Antes de hacer deployment, verificar:
+
+- [ ] Cambios commiteados en Git
+- [ ] Dockerfile correcto en el repositorio (Node.js + Express, NO nginx)
+- [ ] `hemiph-custom.yml` respaldado localmente
+- [ ] SSH key disponible: `srv750816.key`
+- [ ] Conexión SSH funciona: `ssh -i srv750816.key root@82.29.173.205`
+- [ ] Seguir proceso "SOLUCIÓN DEFINITIVA - Rebuild Manual"
+- [ ] NO usar botón "Deploy" de Easypanel UI
+
+---
+
+## Version History
+
+**v4.0 (16 Diciembre 2025)** - Documentación completa de deployment manual
+- Solución definitiva para problema de Easypanel borrando archivos
+- Instrucciones de rebuild manual paso a paso
+- Configuración de Traefik persistente
+- Proceso de diagnóstico y troubleshooting
+
+**v3.2 (24 Noviembre 2024)** - Complete Reservation Summary Fix
+- AI Agent sends complete reservation summary
+- Calendar link included in confirmations
+
+**v3.1 (9 Noviembre 2025)** - WordPress MCP Integration
+- WordPress MCP Adapter plugin added
+
+**v3.0 (7 Noviembre 2025)** - AI Agent optimization
+- Brevity and conversational tone improvements
